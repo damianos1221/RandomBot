@@ -1,0 +1,170 @@
+<!DOCTYPE HoGBOT>
+<HoGSettings>
+    <Healer>
+        <HealRules>
+            <HealRule label="Exura Ico">
+                <HealthRange max="90" min="35" type="%"></HealthRange>
+                <ManaRange max="100" min="0" type="%"></ManaRange>
+                <Method>Wound Cleansing</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+            <HealRule label="GHP">
+                <HealthRange max="35" min="0" type="%"></HealthRange>
+                <ManaRange max="100" min="0" type="%"></ManaRange>
+                <Method>Ultimate Health Potion</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+            <HealRule label="SMP">
+                <HealthRange max="100" min="0" type="%"></HealthRange>
+                <ManaRange max="75" min="0" type="%"></ManaRange>
+                <Method>Strong Mana Potion</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+        </HealRules>
+        <HealFriends/>
+    </Healer>
+    <CaveBot>
+        <Waypoints>
+            <Waypoint action="MainBP = &quot;demon backpack&quot;&#xa;LootBP = &quot;beach backpack&quot;&#xa;MiscBPID = 2869 --- blue backpack&#xa;LootBPID = 5949  --- beach backpack&#xa;&#xa;Floor = &quot;-1&quot;  --- (&quot;-1&quot; or &quot;-2&quot; or &quot;Both&quot;)&#xa;CapToLeave = 100&#xa;MPToLeave = 250&#xa;HPToLeave = 20&#xa;&#xa;MPId = 237&#xa;MPToBuy = 1000&#xa;HPId = 7643&#xa;HPToBuy = 80&#xa;&#xa;ToolToDestroyWeb = 3308&#xa;&#xa;" label="#001" type="Action" x="32920" y="31479" z="7"/>
+            <Waypoint action="" label="StartScript" type="Stand" x="33920" y="31478" z="7"/>
+            <Waypoint action="local mainBpItem = getinventory(INVENTORY_BACKPACK)&#xa;&#xa;reopenbps({mainBpItem.id, &quot;back&quot;}, {LootBPID, MainBP, true}) &#xa;wait(1000)&#xa;opendepot(&quot;depot&quot;)&#xa;waitping()&#xa;deposititems(LootBP, 1, 2)&#xa;waitping()&#xa;closecontainers()&#xa;waitping()&#xa;reopenbps({mainBpItem.id, &quot;back&quot;}, { LootBPID, MainBP, true}, { MiscBPID, MainBP, true}) " label="Depositer" type="Action" x="32920" y="31478" z="7"/>
+            <Waypoint action="" type="Stand" x="33947" y="31504" z="7"/>
+            <Waypoint action="talk(MESSAGE_TYPE_SAY, &quot;hi&quot;)&#xa;waitping()&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;deposit all&quot;)&#xa;waitping()&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;yes&quot;)&#xa;waitping()" label="Bank" type="Action" x="33947" y="31504" z="7"/>
+            <Waypoint action="" label="ToManaShop" type="Stand" x="33910" y="31513" z="7"/>
+            <Waypoint action="talk(MESSAGE_TYPE_SAY, &quot;hi&quot;)&#xa;waitping()&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;trade&quot;)&#xa;waitping()&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;potions&quot;)&#xa;waitping()&#xa;sellobject(285,countitems(285))&#xa;waitping()&#xa;sellobject(284,countitems(284))&#xa;waitping()&#xa;sellobject(283,countitems(283))&#xa;waitping()&#xa;buyitemsupto(MPId, MPToBuy)&#xa;waitping()&#xa;buyitemsupto(HPId, HPToBuy)&#xa;" label="ManaShop" type="Action" x="33910" y="31513" z="7"/>
+            <Waypoint action="" type="Node" x="33900" y="31498" z="7"/>
+            <Waypoint action="" label="BeforeShell" type="Stand" x="33918" y="31472" z="7"/>
+            <Waypoint action="--- Check supply &#xa;if (countitems(MPId) &lt; MPToLeave) or (countitems(HPId) &lt; HPToLeave) or (cap() &lt;  CapToLeave) then&#xa;gotolabel(&quot;StartScript&quot;)&#xa;else&#xa;gotolabel(&quot;UseShell&quot;)&#xa;end" label="CheckSup" type="Action" x="33918" y="31472" z="7"/>
+            <Waypoint action="" label="UseShell" type="Ladder" x="33918" y="31471" z="7"/>
+            <Waypoint action="" label="GoExp" type="Stand" x="33914" y="31449" z="8"/>
+            <Waypoint action="" type="Node" x="33900" y="31420" z="8"/>
+            <Waypoint action="if (countitems(MPId) &lt; MPToLeave) or (countitems(HPId) &lt; HPToLeave) or (cap() &lt;  CapToLeave) then&#xa;gotolabel(&quot;GoRefil&quot;)&#xa;end&#xa;if (Floor == &quot;-2&quot;) then&#xa;gotolabel(&quot;GoDown&quot;)&#xa;end" label="CheckSup2" type="Action" x="33900" y="31420" z="8"/>
+            <Waypoint action="" label="StartHunt" type="Node" x="33891" y="31421" z="8"/>
+            <Waypoint action="" type="Lure" x="33872" y="31424" z="8"/>
+            <Waypoint action="" type="Lure" x="33859" y="31421" z="8"/>
+            <Waypoint action="" type="Lure" x="33821" y="31419" z="8"/>
+            <Waypoint action="" type="Lure" x="33823" y="31415" z="8"/>
+            <Waypoint action="" type="Lure" x="33830" y="31407" z="8"/>
+            <Waypoint action="" type="Lure" x="33830" y="31398" z="8"/>
+            <Waypoint action="" type="Lure" x="33829" y="31379" z="8"/>
+            <Waypoint action="" type="Lure" x="33835" y="31379" z="8"/>
+            <Waypoint action="" type="Lure" x="33860" y="31378" z="8"/>
+            <Waypoint action="" type="Lure" x="33862" y="31387" z="8"/>
+            <Waypoint action="" type="Lure" x="33879" y="31384" z="8"/>
+            <Waypoint action="" type="Lure" x="33888" y="31388" z="8"/>
+            <Waypoint action="" type="Lure" x="33904" y="31391" z="8"/>
+            <Waypoint action="" type="Lure" x="33910" y="31394" z="8"/>
+            <Waypoint action="" type="Lure" x="33889" y="31414" z="8"/>
+            <Waypoint action="" type="Node" x="33881" y="31400" z="8"/>
+            <Waypoint action="if (Floor == &quot;-1&quot;) then&#xa;&#x9;gotolabel(&quot;Upper&quot;)&#xa;else&#xa;if (countitems(MPId) &lt; MPToLeave) or (countitems(HPId) &lt; HPToLeave) or (cap() &lt;  CapToLeave) then&#xa;gotolabel(&quot;GoRefil&quot;)&#xa;else&#xa;gotolabel(&quot;GoDown&quot;)&#xa;end&#xa;&#x9;&#xa;end" label="CheckFloor" type="Action" x="33880" y="31400" z="8"/>
+            <Waypoint action="" label="GoDown" type="Stand" x="33877" y="31400" z="8"/>
+            <Waypoint action="" label="Down" type="Node" x="33874" y="31397" z="9"/>
+            <Waypoint action="" type="Lure" x="33846" y="31396" z="9"/>
+            <Waypoint action="" type="Lure" x="33846" y="31392" z="9"/>
+            <Waypoint action="" type="Lure" x="33835" y="31373" z="9"/>
+            <Waypoint action="" type="Lure" x="33837" y="31371" z="9"/>
+            <Waypoint action="" type="Lure" x="33856" y="31368" z="9"/>
+            <Waypoint action="" type="Lure" x="33860" y="31382" z="9"/>
+            <Waypoint action="" type="Lure" x="33887" y="31369" z="9"/>
+            <Waypoint action="" type="Lure" x="33884" y="31360" z="9"/>
+            <Waypoint action="" type="Lure" x="33911" y="31354" z="9"/>
+            <Waypoint action="" type="Lure" x="33915" y="31371" z="9"/>
+            <Waypoint action="" type="Lure" x="33908" y="31385" z="9"/>
+            <Waypoint action="" label="Before" type="Stand" x="33905" y="31391" z="9"/>
+            <Waypoint action="local position = Position:new(posx(), posy()+1, posz())&#xa;moveallitemstoyourposition(pos)&#xa;wait(200)&#xa;destroyobject(position, 182, ToolToDestroyWeb)" type="Action" x="33905" y="31392" z="9"/>
+            <Waypoint action="" label="After" type="Stand" x="33905" y="31393" z="9"/>
+            <Waypoint action="" type="Node" x="33916" y="31399" z="9"/>
+            <Waypoint action="" type="Lure" x="33884" y="31389" z="9"/>
+            <Waypoint action="" type="Stand" x="33877" y="31398" z="9"/>
+            <Waypoint action="if (Floor == &quot;-2&quot;) then&#xa;if (countitems(MPId) &lt; MPToLeave) or (countitems(HPId) &lt; HPToLeave) or (cap() &lt;  CapToLeave) then&#xa;gotolabel(&quot;GoUp&quot;)&#xa;else&#xa;gotolabel(&quot;Down&quot;)&#xa;end&#xa;end" label="CheckSup3" type="Action" x="33877" y="31398" z="9"/>
+            <Waypoint action="" label="GoUp" type="Stand" x="33877" y="31400" z="9"/>
+            <Waypoint action="" type="Rope" x="33877" y="31400" z="9"/>
+            <Waypoint action="" label="Upper" type="Stand" x="33881" y="31404" z="8"/>
+            <Waypoint action="" type="Node" x="33890" y="31419" z="8"/>
+            <Waypoint action="if (countitems(MPId) &lt; MPToLeave) or (countitems(HPId) &lt; HPToLeave) or (cap() &lt;  CapToLeave) then&#xa;gotolabel(&quot;Leave&quot;)&#xa;else&#xa;gotolabel(&quot;StartHunt&quot;)&#xa;end" label="CheckSup4" type="Action" x="33890" y="31419" z="8"/>
+            <Waypoint action="" label="Leave" type="Stand" x="33896" y="31420" z="8"/>
+            <Waypoint action="" type="Stand" x="33910" y="31437" z="8"/>
+            <Waypoint action="" type="Stand" x="33917" y="31470" z="8"/>
+            <Waypoint action="" type="Rope" x="33917" y="31470" z="8"/>
+            <Waypoint action="" type="Stand" x="33917" y="31480" z="7"/>
+        </Waypoints>
+        <SpecialAreas/>
+        <Looting/>
+    </CaveBot>
+    <Scripts>
+        <Hotkeys/>
+        <Persistences>
+            <Persistence label="EatFood">
+                <Script content="auto(120000)&#xa;local position = getitempositionfromcontainers(3725)&#xa;useobject(position, 3725, position.z, 0)"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="AntyKorytko">
+                <Script content="local positions = {Position:new(posx()-1, posy()-1, posz()), Position:new(posx()-1, posy(), posz()), Position:new(posx()-1, posy()+1, posz()), Position:new(posx(), posy(), posz()), Position:new(posx(), posy()+1, posz()), Position:new(posx()+1, posy()-1, posz()), Position:new(posx()+1, posy(), posz()),Position:new(posx()+1, posy()+1, posz())}&#xa;local idtodestroy = {2524,2358, 2359, 2360, 2361}&#xa;&#xa;function findtrough()&#xa;    local toolposition = getitempositionfromcontainers(3308)&#xa;    for _, pos in ipairs(positions) do&#xa;        for _, id in ipairs(idtodestroy) do&#xa;            local tile = getitemsontile(pos)&#xa;            local objectindex = finditemindex(tile, id)&#xa;            &#xa;            while objectindex ~= -1 do&#xa;                usetwoobjects(toolposition, 3308, toolposition.z, pos, id,&#xa;                              objectindex)&#xa;                tile = getitemsontile(pos)&#xa;                objectindex = finditemindex(tile, id)&#xa;                waitping()&#xa;            end&#xa;        end&#xa;    end&#xa;end&#xa;&#xa;auto(2000)&#xa;findtrough()"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="AmpRes">
+                <Script content="auto(4000)&#xa;local creatures = getcreatures()&#xa;for _, c in ipairs(creatures) do&#xa;        if c.type == CREATURE_TYPE_MONSTER  and (c.name == &quot;Pirat Bombardier&quot; or c.name == &quot;Pirat Scoundrel&quot;) then&#xa;&#x9;talk(MESSAGE_TYPE_SAY, &quot;Exeta Amp Res&quot;)&#xa;        end&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+        </Persistences>
+    </Scripts>
+    <Targeting>
+        <TargetRules>
+            <TargetRule label="">
+                <Name>Exotic Cave Spider, Exotic Bat</Name>
+                <Count>6</Count>
+                <MustAttackMe>No</MustAttackMe>
+                <Settings>
+                    <Settings1>
+                        <HealthRange max="100" min="0" type="%"></HealthRange>
+                        <AttackMode>Offensive/Chase</AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>Lure &amp; Stand</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <FirstSpell>Fierce Berserk</FirstSpell>
+                        <SecondSpell>Berserk</SecondSpell>
+                        <ThirdSpell>Front Sweep</ThirdSpell>
+                        <FourthSpell>Groundshaker</FourthSpell>
+                        <LureSpell>Groundshaker</LureSpell>
+                    </Settings1>
+                    <Settings2>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings2>
+                    <Settings3>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings3>
+                    <Settings4>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings4>
+                </Settings>
+            </TargetRule>
+        </TargetRules>
+    </Targeting>
+</HoGSettings>
