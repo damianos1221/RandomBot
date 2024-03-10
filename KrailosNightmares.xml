@@ -1,0 +1,172 @@
+<!DOCTYPE HoGBOT>
+<HoGSettings>
+    <Healer>
+        <HealRules>
+            <HealRule label="GHP">
+                <HealthRange max="40" min="0" type="%"></HealthRange>
+                <ManaRange max="100" min="0" type="%"></ManaRange>
+                <Method>Great Health Potion</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+            <HealRule label="EXURA ICO">
+                <HealthRange max="99" min="40" type="%"></HealthRange>
+                <ManaRange max="100" min="0" type="%"></ManaRange>
+                <Method>Wound Cleansing</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+            <HealRule label="SMP">
+                <HealthRange max="100" min="0" type="%"></HealthRange>
+                <ManaRange max="75" min="0" type="%"></ManaRange>
+                <Method>Strong Mana Potion</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+        </HealRules>
+        <HealFriends/>
+    </Healer>
+    <CaveBot>
+        <Waypoints>
+            <Waypoint type="Stand" x="33580" y="31588" z="8"/>
+            <Waypoint range="3" type="Lure" x="33562" y="31600" z="8"/>
+            <Waypoint type="Stand" x="33561" y="31607" z="8"/>
+            <Waypoint range="3" type="Lure" x="33548" y="31601" z="8"/>
+            <Waypoint type="Stand" x="33547" y="31587" z="8"/>
+            <Waypoint range="3" type="Lure" x="33548" y="31574" z="8"/>
+            <Waypoint range="3" type="Lure" x="33548" y="31561" z="8"/>
+            <Waypoint label="GoDown" type="Stand" x="33552" y="31559" z="8"/>
+            <Waypoint action="" type="Action" x="33552" y="31559" z="9"/>
+            <Waypoint type="Stand" x="33547" y="31561" z="9"/>
+            <Waypoint range="3" type="Lure" x="33541" y="31562" z="9"/>
+            <Waypoint type="Stand" x="33541" y="31580" z="9"/>
+            <Waypoint range="3" type="Lure" x="33558" y="31580" z="9"/>
+            <Waypoint type="Stand" x="33556" y="31599" z="9"/>
+            <Waypoint range="3" type="Lure" x="33562" y="31602" z="9"/>
+            <Waypoint type="Stand" x="33568" y="31602" z="9"/>
+            <Waypoint range="3" type="Lure" x="33576" y="31603" z="9"/>
+            <Waypoint type="Stand" x="33552" y="31588" z="9"/>
+            <Waypoint label="GoUp" type="Stand" x="33552" y="31559" z="9"/>
+            <Waypoint type="Rope" x="33552" y="31559" z="9"/>
+            <Waypoint action="" type="Action" x="33552" y="31560" z="8"/>
+            <Waypoint type="Stand" x="33562" y="31560" z="8"/>
+            <Waypoint range="3" type="Lure" x="33574" y="31570" z="8"/>
+            <Waypoint type="Stand" x="33585" y="31569" z="8"/>
+            <Waypoint range="3" type="Lure" x="33595" y="31567" z="8"/>
+            <Waypoint type="Stand" x="33601" y="31558" z="8"/>
+            <Waypoint range="3" type="Lure" x="33617" y="31563" z="8"/>
+            <Waypoint type="Stand" x="33616" y="31579" z="8"/>
+            <Waypoint range="3" type="Lure" x="33617" y="31589" z="8"/>
+            <Waypoint label="GoDown2" type="Stand" x="33619" y="31603" z="8"/>
+            <Waypoint action="" type="Action" x="33619" y="31603" z="9"/>
+            <Waypoint type="Stand" x="33618" y="31596" z="9"/>
+            <Waypoint range="3" type="Lure" x="33615" y="31585" z="9"/>
+            <Waypoint type="Stand" x="33612" y="31572" z="9"/>
+            <Waypoint range="3" type="Lure" x="33601" y="31568" z="9"/>
+            <Waypoint type="Stand" x="33592" y="31559" z="9"/>
+            <Waypoint range="3" type="Lure" x="33585" y="31554" z="9"/>
+            <Waypoint type="Stand" x="33575" y="31557" z="9"/>
+            <Waypoint range="3" type="Lure" x="33566" y="31563" z="9"/>
+            <Waypoint type="Stand" x="33607" y="31565" z="9"/>
+            <Waypoint range="3" type="Lure" x="33615" y="31552" z="9"/>
+            <Waypoint type="Stand" x="33616" y="31583" z="9"/>
+            <Waypoint type="Stand" x="33613" y="31603" z="9"/>
+            <Waypoint range="3" type="Lure" x="33599" y="31602" z="9"/>
+            <Waypoint label="GoUp2" type="Stand" x="33619" y="31603" z="9"/>
+            <Waypoint type="Rope" x="33619" y="31603" z="9"/>
+            <Waypoint action="" type="Action" x="33619" y="31604" z="8"/>
+            <Waypoint type="Stand" x="33611" y="31605" z="8"/>
+            <Waypoint range="3" type="Lure" x="33596" y="31602" z="8"/>
+            <Waypoint type="Stand" x="33595" y="31589" z="8"/>
+            <Waypoint range="3" type="Lure" x="33595" y="31568" z="8"/>
+            <Waypoint type="Stand" x="33588" y="31568" z="8"/>
+            <Waypoint range="3" type="Lure" x="33574" y="31570" z="8"/>
+            <Waypoint range="3" type="Lure" x="33575" y="31580" z="8"/>
+            <Waypoint type="Stand" x="33577" y="31589" z="8"/>
+            <Waypoint action="" label="SuppCheck" type="Action" x="33577" y="31589" z="8"/>
+        </Waypoints>
+        <SpecialAreas/>
+        <Looting/>
+    </CaveBot>
+    <Scripts>
+        <Hotkeys/>
+        <Persistences>
+            <Persistence label="EatFood">
+                <Script content="auto(120000)&#xa;local position = getitempositionfromcontainers(3725)&#xa;useobject(position, 3725, position.z, 0)"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="AntyKorytko">
+                <Script content="local positions = {Position:new(posx()-1, posy()-1, posz()), Position:new(posx()-1, posy(), posz()), Position:new(posx()-1, posy()+1, posz()), Position:new(posx(), posy(), posz()), Position:new(posx(), posy()+1, posz()), Position:new(posx()+1, posy()-1, posz()), Position:new(posx()+1, posy(), posz()),Position:new(posx()+1, posy()+1, posz())}&#xa;local idtodestroy = {2524,2358, 2359, 2360, 2361}&#xa;&#xa;function findtrough()&#xa;    local toolposition = getitempositionfromcontainers(3308)&#xa;    for _, pos in ipairs(positions) do&#xa;        for _, id in ipairs(idtodestroy) do&#xa;            local tile = getitemsontile(pos)&#xa;            local objectindex = finditemindex(tile, id)&#xa;            &#xa;            while objectindex ~= -1 do&#xa;                usetwoobjects(toolposition, 3308, toolposition.z, pos, id,&#xa;                              objectindex)&#xa;                tile = getitemsontile(pos)&#xa;                objectindex = finditemindex(tile, id)&#xa;                waitping()&#xa;            end&#xa;        end&#xa;    end&#xa;end&#xa;&#xa;auto(2000)&#xa;findtrough()"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="Exeta">
+                <Script content="auto(200)&#xa;local creatures = getcreatures()&#xa;for _, c in ipairs(creatures) do&#xa;        if c.type == CREATURE_TYPE_MONSTER and c.hppc &lt;= 25 and math.floor(c.dist) &lt;= 1 and (c.name == &quot;nightmare scion&quot; or c.name == &quot;nightmare&quot;) and not cooldown(93) and mp() > 40 then&#xa;if cooldown(93)  then&#xa;              wait(2000)&#xa;  end&#xa;  talk(1, &quot;Exeta Res&quot;)&#xa;  break&#xa;        end&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="Haste">
+                <Script content="auto(3000)&#xa;if not ishasted() and not ispzone() and maround(3) == 0 then&#xa;    talk(1, &quot;utani tempo hur&quot;)&#xa;end"></Script>
+                <Enabled>No</Enabled>
+            </Persistence>
+        </Persistences>
+    </Scripts>
+    <Targeting>
+        <TargetRules>
+            <TargetRule label="">
+                <Name>Nightmare, Undead Gladiator, Nightmare Scion</Name>
+                <Count>4</Count>
+                <MustAttackMe>No</MustAttackMe>
+                <Settings>
+                    <Settings1>
+                        <HealthRange max="100" min="0" type="%"></HealthRange>
+                        <AttackMode>Offensive/Chase</AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>Lure &amp; Approach</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <FirstSpell>Fierce Berserk</FirstSpell>
+                        <SecondSpell>Berserk</SecondSpell>
+                        <ThirdSpell>Groundshaker</ThirdSpell>
+                        <FourthSpell>Front Sweep</FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell>Groundshaker</LureSpell>
+                    </Settings1>
+                    <Settings2>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings2>
+                    <Settings3>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings3>
+                    <Settings4>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings4>
+                </Settings>
+            </TargetRule>
+        </TargetRules>
+    </Targeting>
+</HoGSettings>
