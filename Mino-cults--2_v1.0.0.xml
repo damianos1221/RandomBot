@@ -1,0 +1,221 @@
+<!DOCTYPE HoGBOT>
+<HoGSettings>
+    <Healer>
+        <HealRules>
+            <HealRule label="GHP">
+                <HealthRange max="40" min="0" type="%"></HealthRange>
+                <ManaRange max="100" min="0" type="%"></ManaRange>
+                <Method>Great Health Potion</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+            <HealRule label="ExuraMedIco">
+                <HealthRange max="85" min="0" type="%"></HealthRange>
+                <ManaRange max="100" min="0" type="%"></ManaRange>
+                <Method>Fair Wound Cleansing</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+            <HealRule label="SMP">
+                <HealthRange max="100" min="0" type="%"></HealthRange>
+                <ManaRange max="75" min="0" type="%"></ManaRange>
+                <Method>Strong Mana Potion</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+        </HealRules>
+        <HealFriends/>
+    </Healer>
+    <CaveBot>
+        <Waypoints>
+            <Waypoint range="3" type="Node" x="32347" y="32226" z="7"/>
+            <Waypoint type="Stand" x="32347" y="32231" z="7"/>
+            <Waypoint type="Stand" x="32348" y="32225" z="8"/>
+            <Waypoint action="--- Find depo &#xa;reachdp()" label="ReachDepot" type="Action" x="32348" y="32225" z="8"/>
+            <Waypoint action="--- Depositer &#xa;local mainBpItem = getinventory(INVENTORY_BACKPACK) &#xa;local lootBpId = 2868 -- Camouflage Backpack &#xa;wait(1000) &#xa;reopenbps({mainBpItem.id, &quot;back&quot;}, { 2868, &quot;beach backpack&quot;, true}) &#xa;wait(1000) &#xa;opendepot(&quot;depot&quot;) &#xa;wait(1000) &#xa;deposititems(&quot;purple backpack&quot;, 1, 2) &#xa;wait(1000) &#xa;closecontainers() &#xa;wait(1000) &#xa;reopenbps({mainBpItem.id, &quot;back&quot;}, { 2868, &quot;beach backpack&quot;, true},{ 2869, &quot;beach backpack&quot;, true})" label="depositer" type="Action" x="32348" y="32225" z="8"/>
+            <Waypoint type="Stand" x="32348" y="32231" z="8"/>
+            <Waypoint range="3" type="Node" x="32333" y="32216" z="7"/>
+            <Waypoint type="Ladder" x="32321" y="32211" z="7"/>
+            <Waypoint range="3" type="Node" x="32309" y="32210" z="6"/>
+            <Waypoint action="--- Sail to Venore &#xa;reachnpc(&quot;Captain Bluebear&quot;) &#xa;wait(2000) &#xa;talk(1, &quot;hi&quot;) &#xa;waitping() &#xa;talk(12, &quot;venore&quot;) &#xa;waitping() &#xa;talk(12, &quot;yes&quot;)&#xa; waitping()" type="Action" x="32309" y="32210" z="6"/>
+            <Waypoint type="Stand" x="32970" y="32085" z="6"/>
+            <Waypoint action="--- Buy Supply &#xa;talk(12, &quot;hi&quot;) &#xa;waitping() &#xa;talk(12, &quot;trade&quot;) &#xa;waitping() &#xa;talk(12, &quot;potions&quot;) &#xa;waitping() &#xa;sellobject(284,countitems(284)) &#xa;waitping() &#xa;sellobject(283,countitems(283)) &#xa;waitping() &#xa;buyitemsupto(239, 150) &#xa;waitping() &#xa;buyitemsupto(237, 1200) &#xa;waitping() " type="Action" x="32970" y="32085" z="6"/>
+            <Waypoint range="3" type="Node" x="32955" y="32021" z="6"/>
+            <Waypoint action="--- Sail to Thais &#xa;reachnpc(&quot;Captain Fearless&quot;) &#xa;waitping() &#xa;talk(1, &quot;hi&quot;) &#xa;waitping() &#xa;talk(12, &quot;thais&quot;) &#xa;waitping() &#xa;talk(12, &quot;yes&quot;) &#xa;waitping()" type="Action" x="32955" y="32021" z="6"/>
+            <Waypoint label="go hunt" type="Stand" x="32321" y="32211" z="6"/>
+            <Waypoint type="Stand" x="32356" y="32170" z="7"/>
+            <Waypoint type="Stand" x="32356" y="32173" z="8"/>
+            <Waypoint type="Stand" x="32354" y="32138" z="9"/>
+            <Waypoint type="Stand" x="32355" y="32138" z="10"/>
+            <Waypoint range="3" type="Node" x="32383" y="32154" z="11"/>
+            <Waypoint range="3" type="Node" x="32405" y="32215" z="11"/>
+            <Waypoint range="3" type="Node" x="32455" y="32215" z="11"/>
+            <Waypoint type="Stand" x="32502" y="32217" z="11"/>
+            <Waypoint type="Stand" x="32493" y="32215" z="12"/>
+            <Waypoint range="3" type="Node" x="32507" y="32202" z="13"/>
+            <Waypoint type="Stand" x="32577" y="32179" z="13"/>
+            <Waypoint range="3" type="Node" x="32576" y="32159" z="14"/>
+            <Waypoint range="3" type="Node" x="32571" y="32118" z="14"/>
+            <Waypoint range="3" type="Node" x="32556" y="32087" z="14"/>
+            <Waypoint range="3" type="Node" x="32562" y="32123" z="14"/>
+            <Waypoint type="Ladder" x="32552" y="32154" z="14"/>
+            <Waypoint type="Ladder" x="32553" y="32154" z="13"/>
+            <Waypoint type="Stand" x="32550" y="32186" z="12"/>
+            <Waypoint type="Stand" x="32551" y="32185" z="13"/>
+            <Waypoint range="3" type="Node" x="32540" y="32210" z="14"/>
+            <Waypoint range="3" type="Node" x="32504" y="32160" z="14"/>
+            <Waypoint range="3" type="Node" x="32496" y="32129" z="14"/>
+            <Waypoint range="3" type="Node" x="32485" y="32094" z="14"/>
+            <Waypoint type="Stand" x="32484" y="32101" z="14"/>
+            <Waypoint type="Stand" x="32496" y="32102" z="15"/>
+            <Waypoint type="Stand" x="31949" y="32501" z="8"/>
+            <Waypoint type="Use" x="31950" y="32501" z="8"/>
+            <Waypoint range="3" type="Node" x="31954" y="32499" z="8"/>
+            <Waypoint range="3" type="Node" x="31954" y="32434" z="8"/>
+            <Waypoint range="3" type="Node" x="31947" y="32432" z="8"/>
+            <Waypoint type="Stand" x="31930" y="32446" z="8"/>
+            <Waypoint label="hunt" range="3" type="Node" x="31930" y="32451" z="9"/>
+            <Waypoint range="3" type="Lure" x="31913" y="32453" z="9"/>
+            <Waypoint range="3" type="Node" x="31911" y="32438" z="9"/>
+            <Waypoint range="3" type="Lure" x="31934" y="32433" z="9"/>
+            <Waypoint range="3" type="Node" x="31943" y="32446" z="9"/>
+            <Waypoint range="3" type="Lure" x="31924" y="32470" z="9"/>
+            <Waypoint range="3" type="Node" x="31913" y="32484" z="9"/>
+            <Waypoint range="3" type="Node" x="31914" y="32498" z="9"/>
+            <Waypoint range="3" type="Lure" x="31924" y="32502" z="9"/>
+            <Waypoint range="3" type="Node" x="31943" y="32502" z="9"/>
+            <Waypoint range="3" type="Lure" x="31955" y="32480" z="9"/>
+            <Waypoint type="Stand" x="31957" y="32469" z="9"/>
+            <Waypoint type="Use" x="31957" y="32468" z="9"/>
+            <Waypoint range="3" type="Node" x="31957" y="32465" z="9"/>
+            <Waypoint range="3" type="Lure" x="31957" y="32448" z="9"/>
+            <Waypoint type="Stand" x="31957" y="32467" z="9"/>
+            <Waypoint type="Use" x="31957" y="32468" z="9"/>
+            <Waypoint range="3" type="Node" x="31929" y="32481" z="9"/>
+            <Waypoint range="3" type="Lure" x="31913" y="32483" z="9"/>
+            <Waypoint range="3" type="Node" x="31925" y="32469" z="9"/>
+            <Waypoint range="3" type="Lure" x="31935" y="32465" z="9"/>
+            <Waypoint range="3" type="Node" x="31942" y="32447" z="9"/>
+            <Waypoint range="3" type="Lure" x="31933" y="32432" z="9"/>
+            <Waypoint range="3" type="Node" x="31911" y="32436" z="9"/>
+            <Waypoint range="3" type="Lure" x="31923" y="32454" z="9"/>
+            <Waypoint action="--- Check Refil &#xa;local captoleave = 400 &#xa;local mp = 237 &#xa;local mptoleave = 300 &#xa;local hp = 239 &#xa;local hptoleave = 50 &#xa;&#xa;--check medicine pouches &#xa;local checkItem = false &#xa;local item = countitems(12308) &#xa;local itemtoleave = 1  &#xa;dropitems(283,countitems(283)) &#xa;wait(50) &#xa;dropitems(284,countitems(284)) &#xa;wait(50) &#xa;if cap() &lt;= captoleave or countitems(mp) &lt;= mptoleave or countitems(hp) &lt;= hptoleave or (checkItem and item >= itemtoleave) then &#xa;gotolabel(&quot;refil&quot;) &#xa;else &#xa;gotolabel(&quot;hunt&quot;)  &#xa;end" type="Action" x="31925" y="32454" z="9"/>
+            <Waypoint label="refil" type="Rope" x="31930" y="32446" z="9"/>
+            <Waypoint type="Stand" x="31951" y="32501" z="8"/>
+            <Waypoint type="Use" x="31950" y="32501" z="8"/>
+            <Waypoint range="3" type="Node" x="31927" y="32503" z="8"/>
+            <Waypoint type="Stand" x="31922" y="32503" z="8"/>
+            <Waypoint type="Ladder" x="32484" y="32103" z="15"/>
+            <Waypoint range="3" type="Node" x="32496" y="32102" z="14"/>
+            <Waypoint range="3" type="Node" x="32515" y="32159" z="14"/>
+            <Waypoint type="Stand" x="32511" y="32147" z="14"/>
+            <Waypoint type="Rope" x="32525" y="32145" z="15"/>
+            <Waypoint range="3" type="Node" x="32526" y="32170" z="14"/>
+            <Waypoint range="3" type="Node" x="32553" y="32164" z="14"/>
+            <Waypoint range="3" type="Node" x="32581" y="32177" z="14"/>
+            <Waypoint type="Rope" x="32577" y="32179" z="14"/>
+            <Waypoint range="3" type="Node" x="32562" y="32183" z="13"/>
+            <Waypoint range="3" type="Node" x="32531" y="32199" z="13"/>
+            <Waypoint range="3" type="Node" x="32505" y="32205" z="13"/>
+            <Waypoint type="Ladder" x="32493" y="32215" z="13"/>
+            <Waypoint type="Ladder" x="32502" y="32217" z="12"/>
+            <Waypoint range="3" type="Node" x="32484" y="32213" z="11"/>
+            <Waypoint range="3" type="Node" x="32450" y="32215" z="11"/>
+            <Waypoint range="3" type="Node" x="32405" y="32216" z="11"/>
+            <Waypoint range="3" type="Node" x="32389" y="32188" z="11"/>
+            <Waypoint range="3" type="Node" x="32371" y="32153" z="11"/>
+            <Waypoint type="Ladder" x="32355" y="32138" z="11"/>
+            <Waypoint type="Ladder" x="32354" y="32138" z="10"/>
+            <Waypoint range="3" type="Node" x="32363" y="32150" z="9"/>
+            <Waypoint range="3" type="Node" x="32357" y="32170" z="9"/>
+            <Waypoint type="Stand" x="32356" y="32173" z="9"/>
+            <Waypoint type="Stand" x="32356" y="32170" z="8"/>
+            <Waypoint range="3" type="Node" x="32367" y="32181" z="7"/>
+            <Waypoint type="Stand" x="32344" y="32229" z="7"/>
+            <Waypoint action="--- bank &#xa;talk(12, &quot;hi&quot;) &#xa;waitping() &#xa;talk(12, &quot;deposit all&quot;) &#xa;waitping() &#xa;talk(12, &quot;yes&quot;) &#xa;waitping() &#xa;talk(12, &quot;balance&quot;) &#xa;waitping()" type="Action" x="32344" y="32229" z="7"/>
+        </Waypoints>
+        <SpecialAreas/>
+        <Looting/>
+    </CaveBot>
+    <Scripts>
+        <Hotkeys/>
+        <Persistences>
+            <Persistence label="EatFood">
+                <Script content="auto(18000, 60000)&#xa;local position = getitempositionfromcontainers(3725)&#xa;useobject(position, 3725, position.z, 0)"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="AntyKorytko">
+                <Script content="local positions = {Position:new(posx()-1, posy()-1, posz()), Position:new(posx()-1, posy(), posz()), Position:new(posx()-1, posy()+1, posz()), Position:new(posx(), posy(), posz()), Position:new(posx(), posy()+1, posz()), Position:new(posx()+1, posy()-1, posz()), Position:new(posx()+1, posy(), posz()),Position:new(posx()+1, posy()+1, posz())}&#xa;local idtodestroy = {2524,2358, 2359, 2360, 2361}&#xa;&#xa;function findtrough()&#xa;    local toolposition = getitempositionfromcontainers(3308)&#xa;    for _, pos in ipairs(positions) do&#xa;        for _, id in ipairs(idtodestroy) do&#xa;            local tile = getitemsontile(pos)&#xa;            local objectindex = finditemindex(tile, id)&#xa;            &#xa;            while objectindex ~= -1 do&#xa;                usetwoobjects(toolposition, 3308, toolposition.z, pos, id,&#xa;                              objectindex)&#xa;                tile = getitemsontile(pos)&#xa;                objectindex = finditemindex(tile, id)&#xa;                waitping()&#xa;            end&#xa;        end&#xa;    end&#xa;end&#xa;&#xa;auto(2000)&#xa;findtrough()"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="Haste">
+                <Script content="auto(3000)&#xa;if not ishasted() and not ispzone() and maround(3) == 0 then&#xa;    talk(1, &quot;utani tempo hur&quot;)&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="DropVial">
+                <Script content="function dropflask()&#xa;    for i=283, 285 do&#xa;        local flaskCount = countitems(i)&#xa;        if flaskCount > 0 then&#xa;                  dropitems(i, flaskCount)&#xa;        end&#xa;    end&#xa;end&#xa;&#xa;auto(7000,12000)&#xa;if cap() &lt;= 500 then&#xa;dropflask()&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+        </Persistences>
+    </Scripts>
+    <Targeting>
+        <TargetRules>
+            <TargetRule label="">
+                <Name>Minotaur Cult Prophet, Minotaur Cult Follower, Minotaur Cult Zealot</Name>
+                <Count>4</Count>
+                <MustAttackMe>No</MustAttackMe>
+                <Settings>
+                    <Settings1>
+                        <HealthRange max="100" min="0" type="%"></HealthRange>
+                        <AttackMode>Offensive/Chase</AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>Lure &amp; Approach</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <FirstSpell>Fierce Berserk</FirstSpell>
+                        <SecondSpell>Berserk</SecondSpell>
+                        <ThirdSpell>Groundshaker</ThirdSpell>
+                        <FourthSpell>Front Sweep</FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings1>
+                    <Settings2>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings2>
+                    <Settings3>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings3>
+                    <Settings4>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings4>
+                </Settings>
+            </TargetRule>
+        </TargetRules>
+    </Targeting>
+</HoGSettings>
