@@ -1,0 +1,149 @@
+--## SCRIPT CONFIG ##--
+MainBP = "orange backpack"
+LootBP = "purple backpack"
+MiscBPID = 2869 --- blue backpack (food, rope, shovel etc.)
+LootBPID = 2868 --- purple backpack
+
+GoLastFloor = true
+CapToLeave = 100
+MPToLeave = 130
+HPToLeave = 20
+
+MPId = 237 --- Strong Mana Potion
+MPToBuy = 600
+HPId = 239 --- Great Health Potion
+HPToBuy = 60
+
+
+
+--## BANK ##--
+npctalk("hi","deposit all","yes","balance")
+
+
+--## LOC CHECK ##--
+if not islocation() then
+gotolabel("#005")
+end
+
+--## DEPOSITER ##--
+local mainBpItem = getinventory(INVENTORY_BACKPACK)
+reopenbps({mainBpItem.id, "back"}, {LootBPID, MainBP, true}) 
+wait(1000,1200)
+opendepot("depot")
+wait(1000,1200)
+deposititems(LootBP, 1, 2)
+wait(1000,1200)
+closecontainers()
+wait(1000,1200)
+reopenbps({mainBpItem.id, "back"}, { LootBPID, MainBP, true}, { MiscBPID, MainBP, true}) 
+
+
+--## SUPPLY CHECK ##--
+if (countitems(MPId) < MPToLeave) or (countitems(HPId) < HPToLeave) or (cap() < CapToLeave) then
+gotolabel("CFG")
+else
+gotolabel("GoHunt")
+end
+
+
+
+--## LOC CHECK&SHOP ##--
+if not islocation() then
+gotolabel("#014")
+else
+--## MANA SHOP ##--
+npctalk("hi","vials","yes","trade")
+wait(400,800)
+buyitemsupto(_getid("ultimate health potion"), maxHP)
+wait(400,800)
+buyitemsupto(_getid("strong mana potion"), maxMP)
+wait(400,800)
+
+
+-- ## Withdraw Potions ##
+if takePotions then
+ opendepot(potionsDepot)
+ wait(200,400)
+ withdrawitems(getdepotboxnamefromindex(potionsDepot), {{id = _getid("supreme health potion"), uptocount = maxHP, dest = supplyBp}})
+ wait(200,400)
+ closecontainer(getcontainer(getdepotboxidfromindex(potionsDepot)).id)
+end
+
+
+-- ## Backpacks Potions ##
+if takePotions or takeManas then
+    while windowcount() > 0 do
+        closecontainers()
+        wait(400,1200)
+    end
+    while not windowsopened(supplyBp) do
+     reopenbps({_getid(mainBp), "back"}, {_getid(supplyBp), mainBp, true})
+     wait(400,850)
+    end
+end
+
+
+-- ## Withdraw Rings ##
+if useRings then
+ opendepot(ringDepot)
+ wait(200,400)
+ withdrawitems(getdepotboxnamefromindex(ringDepot), {{id = 3091, uptocount = ringAmount, dest = extraBp}})
+ wait(200,400)
+ closecontainer(getcontainer(getdepotboxidfromindex(ringDepot)).id)
+end
+
+
+-- ## Use Training Statue ##
+trainskill(trainSkill)
+wait(200,400)
+
+
+
+-- ## Eat Food ##
+auto(23000, 40000)
+eatfood()
+
+
+-- ## Auto Haste ##
+auto(1000,2500)
+if maround(4, _areaMonsters) < 1 and cancast("utani hur") and not ishasted() and not ispzone() then
+ cast("utani hur")
+end
+
+
+auto(200)
+if useRings or useAmulets then
+    if _isOnSpawn then
+        if countitems(23533) > 0 and getinventory(INVENTORY_RING).id == 0  then
+            equipitem(23533, INVENTORY_RING)
+        elseif countitems(23544) > 0 and getinventory(INVENTORY_NECKLACE).id == 0 then
+            equipitem(23544, INVENTORY_NECKLACE)
+        end
+    else
+        if getinventory(INVENTORY_RING).id ~= 0  then
+            unequipitem(INVENTORY_RING)
+        elseif getinventory(INVENTORY_NECKLACE).id ~= 0 then
+            unequipitem(INVENTORY_NECKLACE)
+        end
+    end
+end
+
+
+
+auto(400)
+if UseStealRings then
+    for _, c in ipairs(creatures) do
+	if math.floor(c.dist) <= range and c.type == CREATURE_TYPE_MONSTER and c.name == "Stonerefiner" then
+		if countitems(3049) > 0 and getinventory(INVENTORY_RING).id == 0  then
+            		equipitem(3049, INVENTORY_RING)
+        	end
+            end
+        else
+        	if getinventory(INVENTORY_RING).id ~= 0  then
+           	 unequipitem(INVENTORY_RING)
+        	end
+        end
+   end
+end
+
+
