@@ -1,0 +1,237 @@
+<!DOCTYPE HoGBOT>
+<HoGSettings>
+    <Healer>
+        <HealRules>
+            <HealRule label="SHP">
+                <HealthRange max="40" min="0" type="%"></HealthRange>
+                <ManaRange max="100" min="0" type="%"></ManaRange>
+                <Method>Supreme Health Potion</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+            <HealRule label="EXURAMEDICO">
+                <HealthRange max="85" min="0" type="%"></HealthRange>
+                <ManaRange max="100" min="0" type="%"></ManaRange>
+                <Method>Fair Wound Cleansing</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+            <HealRule label="SMP">
+                <HealthRange max="100" min="0" type="%"></HealthRange>
+                <ManaRange max="75" min="0" type="%"></ManaRange>
+                <Method>Strong Mana Potion</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+        </HealRules>
+        <HealFriends/>
+    </Healer>
+    <CaveBot>
+        <Waypoints>
+            <Waypoint action="--## SCRIPT CONFIG  ##--&#xa;&#xa;----BP----&#xa;MainBP = &quot;beach backpack&quot;&#xa;LootBP = &quot;purple backpack&quot;&#xa;MiscBPID = 2869 --- blue backpack (food, rope, shovel etc.)&#xa;LootBPID = 2868  --- purple backpack&#xa;&#xa;---HUNT----&#xa;FLOOR = &quot;-1&quot; --- (&quot;-1&quot; or &quot;-2&quot; or &quot;Both&quot;)&#xa;CapToLeave = 250&#xa;MPToLeave = 300&#xa;HPToLeave = 20&#xa;&#xa;---POTIONS----&#xa;MPId = 237 --- strong mana potion&#xa;MPToBuy = 1700&#xa;HPId = 23375 --- supreme health potion&#xa;HPToBuy = 100" label="CFG" type="Action" x="33126" y="32841" z="7"/>
+            <Waypoint label="START" type="Stand" x="33126" y="32841" z="7"/>
+            <Waypoint action="--## DEPOSITER  ##--&#xa;&#xa;local mainBpItem = getinventory(INVENTORY_BACKPACK)&#xa;wait(500)&#xa;reopenbps({mainBpItem.id, &quot;back&quot;}, {LootBPID, MainBP, true}) &#xa;wait(1000)&#xa;opendepot(&quot;depot&quot;)&#xa;wait(200,500)&#xa;deposititems(LootBP, 1, 2)&#xa;wait(200,500)&#xa;closecontainers()&#xa;wait(200,500)&#xa;reopenbps({mainBpItem.id, &quot;back&quot;}, { LootBPID, MainBP, true}, { MiscBPID, MainBP, true}) " label="DEPOSITER" type="Action" x="33126" y="32841" z="7"/>
+            <Waypoint label="TOMANASHOP" type="Stand" x="33128" y="32826" z="7"/>
+            <Waypoint type="Stand" x="33132" y="32821" z="6"/>
+            <Waypoint action="--## BANK  ##--&#xa;&#xa;talk(MESSAGE_TYPE_SAY, &quot;hi&quot;)&#xa;wait(200,500)&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;deposit all&quot;)&#xa;wait(200,500)&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;yes&quot;)" label="BANK" type="Action" x="33132" y="32821" z="6"/>
+            <Waypoint type="Stand" x="33130" y="32816" z="6"/>
+            <Waypoint type="Stand" x="33130" y="32813" z="5"/>
+            <Waypoint action="--## MANA SHOP  ##--&#xa;&#xa;talk(MESSAGE_TYPE_SAY, &quot;hi&quot;)&#xa;wait(200,500)&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;trade&quot;)&#xa;wait(200,500)&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;potions&quot;)&#xa;wait(200,500)&#xa;sellobject(285,countitems(285))&#xa;wait(200,500)&#xa;sellobject(284,countitems(284))&#xa;wait(200,500)&#xa;sellobject(283,countitems(283))&#xa;wait(200,500)&#xa;buyitemsupto(MPId, MPToBuy)&#xa;wait(200,500)&#xa;buyitemsupto(HPId, HPToBuy)" label="MANASHOP" type="Action" x="33130" y="32813" z="5"/>
+            <Waypoint type="Stand" x="33130" y="32816" z="5"/>
+            <Waypoint type="Stand" x="33127" y="32826" z="6"/>
+            <Waypoint label="#012" range="2" type="Node" x="33124" y="32844" z="7"/>
+            <Waypoint action="--## SUPPLY CHECK  ##--&#xa;&#xa;if (countitems(MPId) &lt; MPToLeave) or (countitems(HPId) &lt; HPToLeave) or (cap() &lt;  CapToLeave) then&#xa;gotolabel(&quot;START&quot;)&#xa;else&#xa;gotolabel(&quot;GOHUNT&quot;)&#xa;end" label="CHECK" type="Action" x="33124" y="32844" z="7"/>
+            <Waypoint label="GOHUNT" type="Stand" x="33084" y="32877" z="7"/>
+            <Waypoint type="Ladder" x="33084" y="32877" z="7"/>
+            <Waypoint range="2" type="Node" x="33092" y="32884" z="6"/>
+            <Waypoint action="--## TO VENORE  ##--&#xa;&#xa;reachnpc(&quot;Captain Sinbeard&quot;)&#xa;wait(500)&#xa;talk(MESSAGE_TYPE_SAY, &quot;hi&quot;)&#xa;wait(200,500)&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;venore&quot;)&#xa;wait(200,500)&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;yes&quot;)&#xa;waitping()" label="TOVENORE" type="Action" x="33092" y="32884" z="6"/>
+            <Waypoint action="--## LOC CHECK  ##--&#xa;&#xa;if not islocation(0) then&#xa; gotolabel(&quot;#016&quot;)&#xa;end" type="Action" x="32954" y="32023" z="6"/>
+            <Waypoint type="Stand" x="32957" y="32036" z="6"/>
+            <Waypoint label="DOOR1" type="Stand" x="32955" y="32035" z="7"/>
+            <Waypoint action="--## OPEN DOOR  ##--&#xa;&#xa;local position = Position:new(posx(), posy()-1, posz())&#xa;usedoor(position, &quot;open&quot;)" label="OPEN1" type="Action" x="32955" y="32035" z="7"/>
+            <Waypoint label="DOOR2" type="Stand" x="32951" y="32031" z="7"/>
+            <Waypoint action="--## OPEN DOOR2  ##--&#xa;&#xa;local position = Position:new(posx()-1, posy(), posz())&#xa;usedoor(position, &quot;open&quot;)&#xa;move(&quot;w&quot;)" label="OPEN2" type="Action" x="32951" y="32031" z="7"/>
+            <Waypoint label="#024" range="2" type="Node" x="32940" y="32031" z="7"/>
+            <Waypoint action="--## TO RASCACOON  ##--&#xa;&#xa;reachnpc(&quot;Eustacio&quot;)&#xa;wait(500)&#xa;talk(MESSAGE_TYPE_SAY, &quot;hi&quot;)&#xa;wait(200,500)&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;shortcut&quot;)&#xa;wait(200,500)&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;yes&quot;)&#xa;waitping()" label="TRAVEL" type="Action" x="32937" y="32031" z="7"/>
+            <Waypoint action="--## LOC CHECK2  ##--&#xa;&#xa;if not islocation() then&#xa; gotolabel(&quot;#024&quot;)&#xa;end" type="Action" x="33774" y="31347" z="7"/>
+            <Waypoint label="GoHuntNext" type="Stand" x="33775" y="31343" z="7"/>
+            <Waypoint type="Stand" x="33796" y="31349" z="7"/>
+            <Waypoint type="Stand" x="33800" y="31358" z="7"/>
+            <Waypoint type="Stand" x="33803" y="31390" z="7"/>
+            <Waypoint action="--## LOC CHECK3  ##--&#xa;&#xa;if not islocation(1) then&#xa; gotolabel(&quot;#029&quot;)&#xa;end" label="LocCheck3" type="Action" x="33803" y="31390" z="7"/>
+            <Waypoint type="Ladder" x="33803" y="31390" z="7"/>
+            <Waypoint type="Stand" x="33793" y="31386" z="6"/>
+            <Waypoint action="--## LOC CHECK4  ##--&#xa;&#xa;if not islocation(1) then&#xa; gotolabel(&quot;#032&quot;)&#xa;end" label="LocCheck4" type="Action" x="33793" y="31386" z="6"/>
+            <Waypoint action="--## TO BOAT  ##--&#xa;&#xa;reachnpc(&quot;Captain Jack Rat&quot;)&#xa;wait(500)&#xa;talk(MESSAGE_TYPE_SAY, &quot;hi&quot;)&#xa;wait(200,500)&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;sail&quot;)&#xa;wait(200,500)&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;safe&quot;)&#xa;wait(200,500)&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;yes&quot;)&#xa;waitping()" label="Travel" type="Action" x="33793" y="31386" z="6"/>
+            <Waypoint type="Stand" x="33838" y="31222" z="5"/>
+            <Waypoint action="--## LOC CHECK5  ##--&#xa;&#xa;if not islocation(1) then&#xa; gotolabel(&quot;Travel&quot;)&#xa;end" label="LocCheck5" type="Action" x="33838" y="31222" z="5"/>
+            <Waypoint type="Stand" x="33838" y="31225" z="5"/>
+            <Waypoint type="Stand" x="33839" y="31226" z="6"/>
+            <Waypoint action="--## LOC CHECK6  ##--&#xa;&#xa;if not islocation(1) then&#xa; gotolabel(&quot;#038&quot;)&#xa;end" label="LocCheck6" type="Action" x="33839" y="31226" z="6"/>
+            <Waypoint label="StartHunt" type="Stand" x="33840" y="31227" z="6"/>
+            <Waypoint action="--## FLOOR  CHECK ##--&#xa;&#xa;if FLOOR == &quot;-2&quot; then&#xa; gotolabel(&quot;GoDown&quot;)&#xa;end" type="Action" x="33840" y="31227" z="6"/>
+            <Waypoint range="3" type="Node" x="33845" y="31221" z="6"/>
+            <Waypoint range="1" type="Lure" x="33852" y="31212" z="6"/>
+            <Waypoint label="#044" range="3" type="Node" x="33853" y="31201" z="6"/>
+            <Waypoint range="2" type="Lure" x="33870" y="31195" z="6"/>
+            <Waypoint range="2" type="Node" x="33890" y="31188" z="6"/>
+            <Waypoint range="2" type="Lure" x="33920" y="31196" z="6"/>
+            <Waypoint range="3" type="Node" x="33923" y="31210" z="6"/>
+            <Waypoint range="2" type="Lure" x="33920" y="31219" z="6"/>
+            <Waypoint range="1" type="Lure" x="33928" y="31228" z="6"/>
+            <Waypoint range="2" type="Lure" x="33925" y="31238" z="6"/>
+            <Waypoint range="3" type="Node" x="33915" y="31244" z="6"/>
+            <Waypoint range="2" type="Lure" x="33903" y="31254" z="6"/>
+            <Waypoint range="3" type="Node" x="33887" y="31260" z="6"/>
+            <Waypoint range="1" type="Lure" x="33873" y="31255" z="6"/>
+            <Waypoint range="2" type="Lure" x="33866" y="31257" z="6"/>
+            <Waypoint range="3" type="Node" x="33867" y="31247" z="6"/>
+            <Waypoint range="1" type="Lure" x="33858" y="31241" z="6"/>
+            <Waypoint range="2" type="Lure" x="33855" y="31233" z="6"/>
+            <Waypoint range="3" type="Node" x="33847" y="31232" z="6"/>
+            <Waypoint range="3" type="Node" x="33841" y="31229" z="6"/>
+            <Waypoint range="1" type="Lure" x="33845" y="31221" z="6"/>
+            <Waypoint action="--## SUPP&amp;FLOOR  CHECK ##--&#xa;&#xa;if FLOOR == &quot;-1&quot; then&#xa;if (countitems(MPId) &lt; MPToLeave) or (countitems(HPId) &lt; HPToLeave) or (cap() &lt;  CapToLeave) then&#xa;gotolabel(&quot;LeaveStart&quot;)&#xa;else&#xa; gotolabel(&quot;#044&quot;)&#xa;end&#xa;else&#xa;if (countitems(MPId) &lt; MPToLeave) or (countitems(HPId) &lt; HPToLeave) or (cap() &lt;  CapToLeave) then&#xa;gotolabel(&quot;LeaveStart&quot;)&#xa;else&#xa; gotolabel(&quot;GoDown&quot;)&#xa;end&#xa;end" label="CheckSupp" type="Action" x="33845" y="31219" z="6"/>
+            <Waypoint label="GoDown" type="Stand" x="33842" y="31220" z="6"/>
+            <Waypoint action="--## GO DOWN ##--&#xa;&#xa;levitate(&quot;w&quot;, &quot;down&quot;)" label="ExaniHurDown" type="Action" x="33842" y="31220" z="6"/>
+            <Waypoint action="--## LOC CHECK7 ##--&#xa;&#xa;if not islocation() then&#xa; gotolabel(&quot;GoDown&quot;)&#xa;end" label="LocCheck123" type="Action" x="33841" y="31220" z="7"/>
+            <Waypoint label="#068" type="Stand" x="33843" y="31219" z="7"/>
+            <Waypoint range="3" type="Node" x="33845" y="31216" z="7"/>
+            <Waypoint range="1" type="Lure" x="33849" y="31210" z="7"/>
+            <Waypoint range="3" type="Node" x="33853" y="31199" z="7"/>
+            <Waypoint range="1" type="Lure" x="33870" y="31193" z="7"/>
+            <Waypoint range="1" type="Lure" x="33883" y="31189" z="7"/>
+            <Waypoint range="1" type="Lure" x="33902" y="31184" z="7"/>
+            <Waypoint range="3" type="Node" x="33903" y="31194" z="7"/>
+            <Waypoint range="1" type="Lure" x="33916" y="31199" z="7"/>
+            <Waypoint range="3" type="Node" x="33924" y="31205" z="7"/>
+            <Waypoint range="1" type="Lure" x="33923" y="31229" z="7"/>
+            <Waypoint range="3" type="Node" x="33917" y="31242" z="7"/>
+            <Waypoint range="1" type="Lure" x="33903" y="31254" z="7"/>
+            <Waypoint range="3" type="Node" x="33888" y="31259" z="7"/>
+            <Waypoint range="3" type="Lure" x="33881" y="31252" z="7"/>
+            <Waypoint range="3" type="Node" x="33868" y="31255" z="7"/>
+            <Waypoint range="1" type="Lure" x="33866" y="31241" z="7"/>
+            <Waypoint range="3" type="Node" x="33855" y="31239" z="7"/>
+            <Waypoint range="1" type="Lure" x="33853" y="31234" z="7"/>
+            <Waypoint range="3" type="Node" x="33844" y="31232" z="7"/>
+            <Waypoint range="1" type="Lure" x="33844" y="31215" z="7"/>
+            <Waypoint label="GoUp" type="Stand" x="33841" y="31220" z="7"/>
+            <Waypoint action="--## SUPP&amp;FLOOR CHECK2 ##--&#xa;&#xa;if FLOOR == &quot;-2&quot; then&#xa; if (countitems(MPId) &lt; MPToLeave) or (countitems(HPId) &lt; HPToLeave) or (cap() &lt;  CapToLeave) then&#xa;    levitate(&quot;e&quot;, &quot;up&quot;)&#xa;  else&#xa;    gotolabel(&quot;#068&quot;)&#xa; end&#xa;else&#xa; levitate(&quot;e&quot;, &quot;up&quot;)&#xa;end&#xa;" label="ExaniHurUp" type="Action" x="33841" y="31220" z="7"/>
+            <Waypoint action="--## LOC&amp;SUPP CHECK ##--&#xa;&#xa;if not islocation() then&#xa; gotolabel(&quot;GoUp&quot;)&#xa;end&#xa;if (countitems(MPId) &lt; MPToLeave) or (countitems(HPId) &lt; HPToLeave) or (cap() &lt;  CapToLeave) then&#xa; gotolabel(&quot;LeaveStart&quot;)&#xa;else&#xa; gotolabel(&quot;StartHunt&quot;)&#xa;end" label="Check123" type="Action" x="33843" y="31220" z="6"/>
+            <Waypoint label="#092" type="Stand" x="33843" y="31220" z="6"/>
+            <Waypoint label="LeaveStart" range="3" type="Node" x="33841" y="31226" z="6"/>
+            <Waypoint type="Stand" x="33838" y="31225" z="6"/>
+            <Waypoint type="Stand" x="33839" y="31220" z="5"/>
+            <Waypoint type="Stand" x="33762" y="31277" z="7"/>
+            <Waypoint action="--## LOC CHECK8 ##--&#xa;&#xa;if not islocation(1) then&#xa; gotolabel(&quot;LeaveStart&quot;)&#xa;end" label="LocCheck" type="Action" x="33762" y="31277" z="7"/>
+            <Waypoint range="3" type="Node" x="33781" y="31303" z="7"/>
+            <Waypoint range="3" type="Node" x="33784" y="31336" z="7"/>
+            <Waypoint label="USE" type="Stand" x="33774" y="31347" z="7"/>
+            <Waypoint label="#101" type="Use" x="33774" y="31348" z="7"/>
+            <Waypoint action="--## LOC CHECK9 ##--&#xa;&#xa;if not islocation(1) then&#xa; gotolabel(&quot;USE&quot;)&#xa;end" label="#102" type="Action" x="32942" y="32030" z="7"/>
+            <Waypoint label="DOOR3" type="Stand" x="32949" y="32031" z="7"/>
+            <Waypoint action="--## OPEN DOOR3  ##--&#xa;&#xa;local position = Position:new(posx()+1, posy(), posz())&#xa;usedoor(position, &quot;open&quot;)&#xa;move(&quot;e&quot;)" label="OPEN3" type="Action" x="32949" y="32031" z="7"/>
+            <Waypoint label="DOOR4" type="Stand" x="32955" y="32033" z="7"/>
+            <Waypoint action="--## OPEN DOOR4  ##--&#xa;&#xa;local position = Position:new(posx(), posy()+1, posz())&#xa;usedoor(position, &quot;open&quot;)" label="OPEN4" type="Action" x="32955" y="32033" z="7"/>
+            <Waypoint type="Stand" x="32957" y="32036" z="7"/>
+            <Waypoint label="#108" range="2" type="Node" x="32955" y="32023" z="6"/>
+            <Waypoint action="--## TO ANKRAHMUN  ##--&#xa;&#xa;reachnpc(&quot;Captain Fearless&quot;)&#xa;wait(500)&#xa;talk(MESSAGE_TYPE_SAY, &quot;hi&quot;)&#xa;wait(200,500)&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;ankrahmun&quot;)&#xa;wait(200,500)&#xa;talk(MESSAGE_TYPE_NPC_TO, &quot;yes&quot;)&#xa;waitping()" label="TOANKRAHMUN" type="Action" x="32955" y="32023" z="6"/>
+            <Waypoint type="Stand" x="33084" y="32877" z="6"/>
+            <Waypoint type="Stand" x="33103" y="32851" z="7"/>
+            <Waypoint action="--## LOC CHECK9  ##--&#xa;&#xa;if not islocation(1) then&#xa; gotolabel(&quot;#070&quot;)&#xa;end" type="Action" x="33103" y="32851" z="7"/>
+        </Waypoints>
+        <SpecialAreas/>
+        <Looting/>
+    </CaveBot>
+    <Scripts>
+        <Hotkeys/>
+        <Persistences>
+            <Persistence label="EatFood">
+                <Script content="auto(18000, 60000)&#xa;local position = getitempositionfromcontainers(3725)&#xa;useobject(position, 3725, position.z, 0)"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="AntyKorytko">
+                <Script content="local positions = {Position:new(posx()-1, posy()-1, posz()), Position:new(posx()-1, posy(), posz()), Position:new(posx()-1, posy()+1, posz()), Position:new(posx(), posy(), posz()), Position:new(posx(), posy()+1, posz()), Position:new(posx()+1, posy()-1, posz()), Position:new(posx()+1, posy(), posz()),Position:new(posx()+1, posy()+1, posz())}&#xa;local idtodestroy = {2524,2358, 2359, 2360, 2361}&#xa;&#xa;function findtrough()&#xa;    local toolposition = getitempositionfromcontainers(3308)&#xa;    for _, pos in ipairs(positions) do&#xa;        for _, id in ipairs(idtodestroy) do&#xa;            local tile = getitemsontile(pos)&#xa;            local objectindex = finditemindex(tile, id)&#xa;            &#xa;            while objectindex ~= -1 do&#xa;                usetwoobjects(toolposition, 3308, toolposition.z, pos, id,&#xa;                              objectindex)&#xa;                tile = getitemsontile(pos)&#xa;                objectindex = finditemindex(tile, id)&#xa;                waitping()&#xa;            end&#xa;        end&#xa;    end&#xa;end&#xa;&#xa;auto(2000)&#xa;findtrough()"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="AmpRes">
+                <Script content="auto(1000)&#xa;local creatures = getcreatures()&#xa;for _, c in ipairs(creatures) do&#xa;        if c.type == CREATURE_TYPE_MONSTER and c.dist &lt;= 7 and (c.name == &quot;pirat bombardier&quot; or c.name == &quot;pirat scoundrel&quot;) and not cooldown(237) and mp() > 100 then&#xa;         if cooldown(237)  then&#xa;              wait(2000)&#xa;  end&#xa;  talk(1, &quot;Exeta Amp Res&quot;)&#xa;  break&#xa;        end&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="Haste">
+                <Script content="auto(1000,2500)&#xa;if maround(3) &lt; 1 and cancast(&quot;utani tempo hur&quot;) and not ishasted() and not ispzone() then&#xa; cast(&quot;utani tempo hur&quot;)&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="DropVial">
+                <Script content="function dropflask()&#xa;    for i=283, 285 do&#xa;        local flaskCount = countitems(i)&#xa;        if flaskCount > 0 then&#xa;                  dropitems(i, flaskCount)&#xa;        end&#xa;    end&#xa;end&#xa;&#xa;auto(7000,12000)&#xa;if cap() &lt;= 500 then&#xa;dropflask()&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+        </Persistences>
+    </Scripts>
+    <Targeting>
+        <TargetRules>
+            <TargetRule label="">
+                <Name>Pirat Bombardier, Pirat Scoundrel, Pirat Mate, Pirat Cutthroat</Name>
+                <Count>5</Count>
+                <MustAttackMe>No</MustAttackMe>
+                <OnlyIfTrapped>No</OnlyIfTrapped>
+                <Settings>
+                    <Settings1>
+                        <HealthRange max="100" min="0" type="%"></HealthRange>
+                        <AttackMode>Offensive/Stand</AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>Lure &amp; Stand</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell>Fierce Berserk</FirstSpell>
+                        <SecondSpell>Berserk</SecondSpell>
+                        <ThirdSpell>Groundshaker</ThirdSpell>
+                        <FourthSpell>Front Sweep</FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell>Groundshaker</LureSpell>
+                    </Settings1>
+                    <Settings2>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings2>
+                    <Settings3>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings3>
+                    <Settings4>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings4>
+                </Settings>
+            </TargetRule>
+        </TargetRules>
+    </Targeting>
+</HoGSettings>
