@@ -1,0 +1,293 @@
+<!DOCTYPE HoGBOT>
+<HoGSettings>
+    <Healer>
+        <HealRules>
+            <HealRule label="USP">
+                <HealthRange max="45" min="0" type="%"></HealthRange>
+                <ManaRange max="100" min="0" type="%"></ManaRange>
+                <Method>Ultimate Spirit Potion</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+            <HealRule label="ExuraGranSan">
+                <HealthRange max="80" min="0" type="%"></HealthRange>
+                <ManaRange max="100" min="0" type="%"></ManaRange>
+                <Method>Salvation</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+            <HealRule label="GMP">
+                <HealthRange max="100" min="0" type="%"></HealthRange>
+                <ManaRange max="60" min="0" type="%"></ManaRange>
+                <Method>Great Mana Potion</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+        </HealRules>
+        <HealFriends/>
+    </Healer>
+    <CaveBot>
+        <Waypoints>
+            <Waypoint label="START EDRON DP" type="Stand" x="33171" y="31813" z="7"/>
+            <Waypoint label="BANK" type="Stand" x="33173" y="31803" z="7"/>
+            <Waypoint action="--## BANK ##--&#xa;npctalk(&quot;hi&quot;,&quot;deposit all&quot;,&quot;yes&quot;,&quot;balance&quot;)" type="Action" x="33173" y="31803" z="7"/>
+            <Waypoint label="#004" type="Stand" x="33169" y="31812" z="7"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#004&quot;)&#xa;end" type="Action" x="33169" y="31813" z="8"/>
+            <Waypoint label="DEPOSITER" type="Stand" x="33168" y="31799" z="8"/>
+            <Waypoint action="--## DEPOSITER ##--&#xa;reopenbps({_getid(MainBP), &quot;back&quot;}, {_getid(LootBP), MainBP, true}) &#xa;wait(1000,1200)&#xa;opendepot(&quot;depot&quot;)&#xa;wait(1000,1200)&#xa;deposititems(LootBP, 1, 2)&#xa;wait(1000,1200)&#xa;closecontainers()&#xa;wait(1000,1200)&#xa;reopenbps({_getid(MainBP), &quot;back&quot;}, { _getid(LootBP), MainBP, true}, { _getid(MiscBP), MainBP, true}, { _getid(AmmoBP), MainBP, true}) &#xa;wait(1000,1200)&#xa; opendepot(DepotWithAva)&#xa; wait(200,400)&#xa; withdrawitems(getdepotboxnamefromindex(DepotWithAva), {{id = 3161, uptocount = AvalancheToTakeFromDP, dest = AvalancheBP}})&#xa; wait(200,400)&#xa; closecontainer(getcontainer(getdepotboxidfromindex(DepotWithAva)).id)&#xa;wait(800,1000)&#xa;openquiver()" type="Action" x="33168" y="31799" z="8"/>
+            <Waypoint label="#008" type="Stand" x="33169" y="31812" z="8"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#008&quot;)&#xa;end" type="Action" x="33169" y="31811" z="7"/>
+            <Waypoint range="3" type="Node" x="33184" y="31818" z="7"/>
+            <Waypoint type="Stand" x="33209" y="31818" z="7"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#011&quot;)&#xa;end" type="Action" x="33209" y="31817" z="6"/>
+            <Waypoint label="BUYAMMO" type="Stand" x="33212" y="31796" z="6"/>
+            <Waypoint action="--## BUY AMMO ##--&#xa;wait(300,500)&#xa;npctalk(&quot;hi&quot;, &quot;trade&quot;)&#xa;wait(300,500)&#xa;buyitemsupto(_getid(Ammo), AmmoToBuy)&#xa;wait(300,500)" type="Action" x="33212" y="31796" z="6"/>
+            <Waypoint type="Stand" x="33209" y="31818" z="6"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#015&quot;)&#xa;end" type="Action" x="33209" y="31819" z="7"/>
+            <Waypoint range="3" type="Node" x="33195" y="31840" z="7"/>
+            <Waypoint type="Stand" x="33247" y="31841" z="7"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#018&quot;)&#xa;end" type="Action" x="33247" y="31840" z="6"/>
+            <Waypoint type="Stand" x="33255" y="31838" z="6"/>
+            <Waypoint action="--## BUY POTS &amp; LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#020&quot;)&#xa;else&#xa;--## MANA SHOP ##--&#xa;npctalk(&quot;hi&quot;,&quot;trade&quot;)&#xa;wait(400,800)&#xa;sellflasks()&#xa;wait(400,800)&#xa;buyitemsupto(_getid(&quot;ultimate spirit potion&quot;), HPToBuy)&#xa;wait(400,800)&#xa;buyitemsupto(_getid(&quot;great mana potion&quot;), MPToBuy)&#xa;wait(400,800)&#xa;end&#xa;" type="Action" x="33255" y="31839" z="7"/>
+            <Waypoint type="Stand" x="33255" y="31838" z="7"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#022&quot;)&#xa;end" type="Action" x="33255" y="31837" z="6"/>
+            <Waypoint type="Stand" x="33247" y="31841" z="6"/>
+            <Waypoint type="Stand" x="33247" y="31842" z="7"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#024&quot;)&#xa;end&#xa;--## SUPPLY CHECK ##--&#xa;if (countitems(_getid(MP)) &lt; MPToBuy-10) or (countitems(_getid(HP)) &lt; HPToBuy-10) or (cap() &lt; CapToLeave) or (countitems(_getid(Ammo)) &lt; AmmoToBuy)  or (countitems(_getid(&quot;Avalanche Rune&quot;)) &lt; AvalancheToTakeFromDP) then&#xa;gotolabel(&quot;START EDRON DP&quot;)&#xa;end&#xa;&#xa;" type="Action" x="33247" y="31842" z="7"/>
+            <Waypoint type="Stand" x="33241" y="31767" z="7"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;&#xa;if not islocation() then&#xa;gotolabel(&quot;#023&quot;)&#xa;end" label="Loc6" type="Action" x="33240" y="31767" z="6"/>
+            <Waypoint type="Stand" x="33216" y="31757" z="6"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;&#xa;if not islocation() then&#xa;gotolabel(&quot;#025&quot;)&#xa;end" label="Loc7" type="Action" x="33215" y="31757" z="7"/>
+            <Waypoint range="2" type="Node" x="33184" y="31705" z="7"/>
+            <Waypoint range="2" type="Node" x="33142" y="31703" z="7"/>
+            <Waypoint type="Stand" x="33109" y="31721" z="7"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;&#xa;if not islocation() then&#xa;gotolabel(&quot;#029&quot;)&#xa;end" label="Loc8" type="Action" x="33109" y="31720" z="8"/>
+            <Waypoint range="2" type="Node" x="33079" y="31707" z="8"/>
+            <Waypoint label="#032" type="Stand" x="33059" y="31693" z="8"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;&#xa;if not islocation() then&#xa;gotolabel(&quot;#032&quot;)&#xa;end" label="Loc9" type="Action" x="33059" y="31692" z="9"/>
+            <Waypoint range="2" type="Node" x="33008" y="31687" z="9"/>
+            <Waypoint range="2" type="Node" x="33008" y="31648" z="9"/>
+            <Waypoint label="#036" type="Stand" x="32989" y="31625" z="9"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;&#xa;if not islocation() then&#xa;gotolabel(&quot;#036&quot;)&#xa;end" label="Loc10" type="Action" x="32990" y="31625" z="10"/>
+            <Waypoint label="#038" range="2" type="Node" x="33015" y="31639" z="10"/>
+            <Waypoint range="2" type="Node" x="33043" y="31594" z="10"/>
+            <Waypoint type="Stand" x="33064" y="31598" z="10"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;&#xa;if not islocation() then&#xa;gotolabel(&quot;#054&quot;)&#xa;end" label="Loc11" type="Action" x="33063" y="31598" z="11"/>
+            <Waypoint label="StartHunt" range="3" type="Node" x="33051" y="31597" z="11"/>
+            <Waypoint range="1" type="Lure" x="33037" y="31595" z="11"/>
+            <Waypoint range="2" type="Node" x="33037" y="31608" z="11"/>
+            <Waypoint range="1" type="Lure" x="33038" y="31615" z="11"/>
+            <Waypoint range="2" type="Node" x="33038" y="31631" z="11"/>
+            <Waypoint range="1" type="Lure" x="33038" y="31636" z="11"/>
+            <Waypoint range="2" type="Node" x="33022" y="31634" z="11"/>
+            <Waypoint range="1" type="Lure" x="33014" y="31635" z="11"/>
+            <Waypoint range="2" type="Node" x="33002" y="31634" z="11"/>
+            <Waypoint range="1" type="Lure" x="32994" y="31634" z="11"/>
+            <Waypoint range="2" type="Node" x="32983" y="31634" z="11"/>
+            <Waypoint range="1" type="Lure" x="32975" y="31635" z="11"/>
+            <Waypoint range="2" type="Node" x="32975" y="31622" z="11"/>
+            <Waypoint range="1" type="Lure" x="32976" y="31609" z="11"/>
+            <Waypoint range="2" type="Node" x="32988" y="31611" z="11"/>
+            <Waypoint range="1" type="Lure" x="33001" y="31616" z="11"/>
+            <Waypoint range="2" type="Node" x="33004" y="31608" z="11"/>
+            <Waypoint range="1" type="Lure" x="33019" y="31610" z="11"/>
+            <Waypoint range="2" type="Node" x="33004" y="31611" z="11"/>
+            <Waypoint action="--## FLOOR CHECK ##--&#xa;&#xa;if GoLastFloor == true then&#xa;gotolabel(&quot;#061&quot;)&#xa;else&#xa;gotolabel(&quot;EnterTP&quot;)&#xa;end" label="CheckGoLastFloor" type="Action" x="33004" y="31611" z="11"/>
+            <Waypoint type="Stand" x="32999" y="31611" z="11"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;&#xa;if not islocation() then&#xa;gotolabel(&quot;#076&quot;)&#xa;end" label="Loc12" type="Action" x="32998" y="31611" z="12"/>
+            <Waypoint range="2" type="Node" x="32997" y="31618" z="12"/>
+            <Waypoint range="1" type="Lure" x="32997" y="31628" z="12"/>
+            <Waypoint range="1" type="Lure" x="32986" y="31615" z="12"/>
+            <Waypoint type="Stand" x="32999" y="31611" z="12"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;&#xa;if not islocation() then&#xa;gotolabel(&quot;#081&quot;)&#xa;end" label="Loc13" type="Action" x="33000" y="31611" z="11"/>
+            <Waypoint label="#068" range="2" type="Node" x="33005" y="31610" z="11"/>
+            <Waypoint range="1" type="Node" x="33019" y="31610" z="11"/>
+            <Waypoint action="--## LOC&amp;SUPP CHECK ##--&#xa;&#xa;if (countitems(_getid(MP)) &lt; MPToLeave) or (countitems(_getid(HP)) &lt; HPToLeave) or (cap() &lt;  CapToLeave) then&#xa;gotolabel(&quot;EnterTP&quot;)&#xa;end" label="SuppCheck" type="Action" x="33019" y="31610" z="11"/>
+            <Waypoint range="2" type="Node" x="33004" y="31616" z="11"/>
+            <Waypoint range="1" type="Lure" x="33014" y="31634" z="11"/>
+            <Waypoint range="2" type="Node" x="33026" y="31634" z="11"/>
+            <Waypoint range="1" type="Lure" x="33039" y="31636" z="11"/>
+            <Waypoint range="2" type="Node" x="33038" y="31625" z="11"/>
+            <Waypoint range="1" type="Lure" x="33037" y="31614" z="11"/>
+            <Waypoint range="2" type="Node" x="33038" y="31605" z="11"/>
+            <Waypoint range="1" type="Lure" x="33037" y="31593" z="11"/>
+            <Waypoint action="--## RETURN HUNT ##--&#xa;&#xa;gotolabel(&quot;StartHunt&quot;)&#xa;" label="#080" type="Action" x="33037" y="31593" z="11"/>
+            <Waypoint label="EnterTP" type="Stand" x="33019" y="31605" z="11"/>
+            <Waypoint label="Leave" range="2" type="Node" x="33061" y="31697" z="8"/>
+            <Waypoint range="2" type="Node" x="33080" y="31708" z="8"/>
+            <Waypoint type="Stand" x="33109" y="31721" z="8"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;&#xa;if not islocation() then&#xa;gotolabel(&quot;#089&quot;)&#xa;end" label="Loc14" type="Action" x="33109" y="31722" z="7"/>
+            <Waypoint range="2" type="Node" x="33135" y="31700" z="7"/>
+            <Waypoint range="2" type="Node" x="33193" y="31721" z="7"/>
+            <Waypoint type="Stand" x="33216" y="31756" z="7"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;&#xa;if not islocation() then&#xa;gotolabel(&quot;#093&quot;)&#xa;end" label="Loc15" type="Action" x="33217" y="31756" z="6"/>
+            <Waypoint type="Stand" x="33241" y="31767" z="6"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;&#xa;if not islocation() then&#xa;gotolabel(&quot;#095&quot;)&#xa;end" label="Loc16" type="Action" x="33242" y="31767" z="7"/>
+            <Waypoint label="END" range="2" type="Node" x="33242" y="31819" z="7"/>
+        </Waypoints>
+        <SpecialAreas/>
+        <Looting/>
+    </CaveBot>
+    <Scripts>
+        <Hotkeys/>
+        <Persistences>
+            <Persistence label="## SCRIPT CONFIG ##">
+                <Script content="--## SCRIPT CONFIG ##--&#xa;&#xa;--## BP'S ##--&#xa;MainBP = &quot;golden backpack&quot;  -- with rope shovel etc.&#xa;LootBP = &quot;red backpack&quot; -- for loot&#xa;MiscBP = &quot;blue backpack&quot; -- potions&#xa;AmmoBP = &quot;beach backpack&quot; -- ammunition&#xa;AvalancheBP = &quot;blue backpack&quot; -- avalanche runes&#xa;QuiverName = &quot;Quiver&quot; -- quiver on shield slot&#xa;&#xa;--## HUNT ##--&#xa;GoLastFloor = true&#xa;CapToLeave = 100&#xa;MPToLeave = 150&#xa;HPToLeave = 20&#xa;AmmoToLeave = 300&#xa;CapToDropVial = 500&#xa;AvalancheToLeave = 50&#xa;&#xa;--## POTIONS &amp; AMMO ##--&#xa;MP = &quot;great mana potion&quot;&#xa;MPToBuy = 900&#xa;HP = &quot;ultimate spirit potion&quot;&#xa;HPToBuy = 100&#xa;AmmoToBuy = 1100&#xa;Ammo = &quot;diamond arrow&quot;&#xa;AvalancheToTakeFromDP = 300&#xa;DepotWithAva = 4&#xa;&#xa;&#xa;&#xa;"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="## FUNCTIONS ##">
+                <Script content="-- ## Functions ## --&#xa;-- ## Don't touch it ## --&#xa;-- ## FROM DWORAK SCRIPT ## --&#xa;init start&#xa;OnSpawn, Refill = false, false&#xa;init end&#xa;&#xa;MonstersTable = {&quot;Hydra&quot;, &quot;Bog Raider&quot;}&#xa;&#xa;local items = {{&quot;25 Years Backpack&quot;, {39693}},{&quot;Anniversary Backpack&quot;, {14674}},{&quot;Backpack&quot;, {2854}},{&quot;Backpack of Holding&quot;, {3253}},{&quot;Beach Backpack&quot;, {5949}},{&quot;Birthday Backpack&quot;, {24395}},{&quot;Blue Backpack&quot;, {2869}},{&quot;Book Backpack&quot;, {28571}},{&quot;Brocade Backpack&quot;, {8860}},{&quot;Buggy Backpack&quot;, {14249}},{&quot;Cake Backpack&quot;, {20347}},{&quot;Camouflage Backpack&quot;, {2872}},{&quot;Changing Backpack&quot;, {37536}},{&quot;Crown Backpack&quot;, {9605}},{&quot;Crystal Backpack&quot;, {16100}},{&quot;Deepling Backpack&quot;, {14248}},{&quot;Demon Backpack&quot;, {9601}},{&quot;Dragon Backpack&quot;, {10326}},{&quot;Energetic Backpack&quot;, {23525}},{&quot;Expedition Backpack&quot;, {10324}},{&quot;Festive Backpack&quot;, {30197}},{&quot;Fur Backpack&quot;, {7342}},{&quot;Ghost Backpack&quot;, {32620}},{&quot;Glooth Backpack&quot;, {21295}},{&quot;Golden Backpack&quot;, {2871}},{&quot;Green Backpack&quot;, {2865}},{&quot;Grey Backpack&quot;, {2870}},{&quot;Heart Backpack&quot;, {10202}},{&quot;Jewelled Backpack&quot;, {5801}},{&quot;Lilypad Backpack&quot;, {39754}},{&quot;Minotaur Backpack&quot;, {10327}},{&quot;Moon Backpack&quot;, {9604}},{&quot;Mushroom Backpack&quot;, {16099}},{&quot;Old and Used Backpack&quot;, {3244}},{&quot;Orange Backpack&quot;, {9602}},{&quot;Pannier Backpack&quot;, {19159}},{&quot;Pillow Backpack&quot;, {24393}},{&quot;Pirate Backpack&quot;, {5926}},{&quot;Purple Backpack&quot;, {2868}},{&quot;Raccoon Backpack&quot;, {35577}},{&quot;Red Backpack&quot;, {2867}},{&quot;Santa Backpack&quot;, {10346}},{&quot;War Backpack&quot;, {21445}},{&quot;Winged Backpack&quot;, {31625}},{&quot;Wolf Backpack&quot;, {22084}},{&quot;Yellow Backpack&quot;, {2866}},{&quot;Cocktail Glass&quot;, {9232}},{&quot;Delicate Vase&quot;, {12478}},{&quot;Zaoan Chess Box&quot;, {18339}},{&quot;Birthday Cake&quot;, {24396}},{&quot;Blossom Bag&quot;, {25780}},{&quot;Feedbag&quot;, {21292}},{&quot;Bag&quot;, {2853}},{&quot;Beach Bag&quot;, {5950}},{&quot;Blue Bag&quot;, {2861}},{&quot;Brocade Bag&quot;, {8861}},{&quot;Camouflage Bag&quot;, {2864}},{&quot;Expedition Bag&quot;, {10325}},{&quot;Fur Bag&quot;, {7343}},{&quot;Golden Bag&quot;, {2863}},{&quot;Green Bag&quot;, {2857}},{&quot;Grey Bag&quot;, {2862}},{&quot;Orange Bag&quot;, {9603}},{&quot;Pirate Bag&quot;, {5927}},{&quot;Purple Bag&quot;, {2860}},{&quot;Red Bag&quot;, {2859}},{&quot;Shopping Bag&quot;, {21411}},{&quot;Great Health Potion&quot;, {239}},{&quot;Great Mana Potion&quot;, {238}},{&quot;Great Spirit Potion&quot;, {7642}},{&quot;Health Potion&quot;, {266}},{&quot;Mana Potion&quot;, {268}},{&quot;Small Health Potion&quot;, {7876}},{&quot;Strong Health Potion&quot;, {236}},{&quot;Strong Mana Potion&quot;, {237}},{&quot;Supreme Health Potion&quot;, {23375}},{&quot;Ultimate Health Potion&quot;, {7643}},{&quot;Ultimate Mana Potion&quot;, {23373}},{&quot;Ultimate Spirit Potion&quot;, {23374}},{&quot;Ancient Rune&quot;, {3235}},{&quot;Animate Dead Rune&quot;, {3203}},{&quot;Astral Shaper Rune&quot;, {24960}},{&quot;Avalanche Rune&quot;, {3161}},{&quot;Blank Rune&quot;, {3147}},{&quot;Chameleon Rune&quot;, {3178}},{&quot;Convince Creature Rune&quot;, {3177}},{&quot;Cure Poison Rune&quot;, {3153}},{&quot;Destroy Field Rune&quot;, {3148}},{&quot;Disintegrate Rune&quot;, {3197}},{&quot;Energy Bomb Rune&quot;, {3149}},{&quot;Energy Field Rune&quot;, {3164}},{&quot;Energy Wall Rune&quot;, {3166}},{&quot;Explosion Rune&quot;, {3200}},{&quot;Fire Bomb Rune&quot;, {3192}},{&quot;Fire Field Rune&quot;, {3188}},{&quot;Fire Wall Rune&quot;, {3190}},{&quot;Fireball Rune&quot;, {3189}},{&quot;Glowing Rune&quot;, {28570}},{&quot;Great Fireball Rune&quot;, {3191}},{&quot;Heavy Magic Missile Rune&quot;, {3198}},{&quot;Holy Missile Rune&quot;, {3182}},{&quot;Icicle Rune&quot;, {3158}},{&quot;Inert Astral Shaper Rune&quot;, {25059}},{&quot;Intense Healing Rune&quot;, {3152}},{&quot;Light Magic Missile Rune&quot;, {3174}},{&quot;Light Stone Shower Rune&quot;, {21351}},{&quot;Lightest Magic Missile Rune&quot;, {17512}},{&quot;Lightest Missile Rune&quot;, {21352}},{&quot;Magic Wall Rune&quot;, {3180}},{&quot;Paralyse Rune&quot;, {3165}},{&quot;Poison Bomb Rune&quot;, {3173}},{&quot;Poison Field Rune&quot;, {3172}},{&quot;Poison Wall Rune&quot;, {3176}},{&quot;Stalagmite Rune&quot;, {3179}},{&quot;Stone Shower Rune&quot;, {3175}},{&quot;Sudden Death Rune&quot;, {3155}},{&quot;Thunderstorm Rune&quot;, {3202}},{&quot;Wild Growth Rune&quot;,{3156}},{&quot;Diamond Arrow&quot;, {35901}},{&quot;Quiver&quot;, {35562}},{&quot;Red Quiver&quot;, {35849}},{&quot;Alicorn Quiver&quot;, {39150}},{&quot;Blue Quiver&quot;, {35848}},{&quot;Eldritch Quiver&quot;, {36666}},{&quot;Naga Quiver&quot;, {39160}}&#xa;}&#xa;&#xa;&#xa;function _getid(item_name)&#xa;    for _, item in ipairs(items) do&#xa;        if item[1]:lower() == item_name:lower() then&#xa;            if type(item[2]) == &quot;table&quot; then&#xa;                if #item[2] == 1 then&#xa;                    return item[2][1]&#xa;                else&#xa;                    return item[2]&#xa;                end&#xa;            end&#xa;        end&#xa;    end&#xa;    return nil&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="DropVials">
+                <Script content="auto(15000,20000)&#xa;if cap() &lt; CapToDropVial then&#xa;dropitems(283,countitems(283))&#xa;wait(200, 400)&#xa;dropitems(284,countitems(284))&#xa;wait(200, 400)&#xa;dropitems(285,countitems(285))&#xa;wait(200, 400)&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="Haste">
+                <Script content="auto(2000)&#xa;if maround(2, MonstersTable) &lt; 1 and not ishasted() and not ispzone() then&#xa;    talk(MESSAGE_TYPE_SAY, 'utani hur')&#xa;    wait(200)&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="FoodEat">
+                <Script content="auto(23000, 40000)&#xa;eatfood()"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="Anty Paral">
+                <Script content="auto(200)&#xa;if isparalysed() then&#xa;    talk(MESSAGE_TYPE_SAY, 'utani hur')&#xa;    wait(200)&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="AmmoRefil">
+                <Script content="auto(1000, 1500)&#xa;local weaponid = _getid(Ammo)&#xa;local countinquiver = countitems(_getid(Ammo), QuiverName)&#xa;if countitems(weaponid) > 0 and countinquiver &lt; 200 then&#xa;    equipobject(weaponid, 5)&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+        </Persistences>
+    </Scripts>
+    <Targeting>
+        <TargetRules>
+            <TargetRule label="Main">
+                <Name>Vampire Viscount, Vampire Bride, Bonebeast, Vampire, Necromancer</Name>
+                <Count>3</Count>
+                <MustAttackMe>No</MustAttackMe>
+                <OnlyIfTrapped>No</OnlyIfTrapped>
+                <Settings>
+                    <Settings1>
+                        <HealthRange max="100" min="0" type="%"></HealthRange>
+                        <AttackMode>Offensive/Stand</AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>Lure &amp; Stand</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell>Divine Caldera</FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings1>
+                    <Settings2>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings2>
+                    <Settings3>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings3>
+                    <Settings4>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings4>
+                </Settings>
+            </TargetRule>
+            <TargetRule label="Less">
+                <Name>Demon Skeleton, Ghoul, Skeleton Warrior, Necromancer</Name>
+                <Count>1</Count>
+                <MustAttackMe>No</MustAttackMe>
+                <OnlyIfTrapped>Yes</OnlyIfTrapped>
+                <Settings>
+                    <Settings1>
+                        <HealthRange max="100" min="0" type="%"></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>Approach</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings1>
+                    <Settings2>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings2>
+                    <Settings3>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings3>
+                    <Settings4>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings4>
+                </Settings>
+            </TargetRule>
+        </TargetRules>
+    </Targeting>
+</HoGSettings>
