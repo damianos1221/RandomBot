@@ -1,0 +1,268 @@
+<!DOCTYPE HoGBOT>
+<HoGSettings>
+    <Healer>
+        <HealRules>
+            <HealRule label="HP">
+                <HealthRange max="40" min="0" type="%"></HealthRange>
+                <ManaRange max="100" min="0" type="%"></ManaRange>
+                <Method>Health Potion</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+            <HealRule label="ExuraSan">
+                <HealthRange max="85" min="0" type="%"></HealthRange>
+                <ManaRange max="100" min="0" type="%"></ManaRange>
+                <Method>Divine Healing</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+            <HealRule label="MP">
+                <HealthRange max="100" min="0" type="%"></HealthRange>
+                <ManaRange max="60" min="0" type="%"></ManaRange>
+                <Method>Mana Potion</Method>
+                <ExtraCondition></ExtraCondition>
+            </HealRule>
+        </HealRules>
+        <HealFriends/>
+    </Healer>
+    <CaveBot>
+        <Waypoints>
+            <Waypoint label="START YALA DP" type="Stand" x="32790" y="31247" z="7"/>
+            <Waypoint label="BANK" type="Stand" x="32819" y="31249" z="7"/>
+            <Waypoint action="--## BANK ##--&#xa;npctalk(&quot;hi&quot;,&quot;deposit all&quot;,&quot;yes&quot;,&quot;balance&quot;)" type="Action" x="32819" y="31249" z="7"/>
+            <Waypoint label="DEPOSITER" type="Stand" x="32788" y="31247" z="7"/>
+            <Waypoint action="--## DEPOSITER ##--&#xa;reopenbps({_getid(MainBP), &quot;back&quot;}, {_getid(LootBP), MainBP, true}) &#xa;wait(1000,1200)&#xa;opendepot(&quot;depot&quot;)&#xa;wait(1000,1200)&#xa;deposititems(LootBP, 1, 2)&#xa;wait(1000,1200)&#xa;closecontainers()&#xa;wait(1000,1200)&#xa;reopenbps({_getid(MainBP), &quot;back&quot;}, { _getid(LootBP), MainBP, true}, { _getid(MiscBP), MainBP, true}, { _getid(AmmoBP), MainBP, true}) &#xa;wait(1000,1200)&#xa;openquiver()" type="Action" x="32788" y="31247" z="7"/>
+            <Waypoint label="#008" type="Stand" x="32790" y="31239" z="7"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#008&quot;)&#xa;end" type="Action" x="32790" y="31238" z="6"/>
+            <Waypoint type="Stand" x="32789" y="31239" z="6"/>
+            <Waypoint action="--## BUY POTS &amp; LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#08&quot;)&#xa;else&#xa;--## MANA SHOP ##--&#xa;npctalk(&quot;hi&quot;,&quot;trade&quot;)&#xa;wait(400,800)&#xa;sellflasks()&#xa;wait(400,800)&#xa;buyitemsupto(_getid(HP), HPToBuy)&#xa;wait(400,800)&#xa;buyitemsupto(_getid(MP), MPToBuy)&#xa;wait(400,800)&#xa;end&#xa;" label="MANASHOP" type="Action" x="32789" y="31238" z="5"/>
+            <Waypoint label="#010" type="Stand" x="32790" y="31239" z="5"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#010&quot;)&#xa;end" type="Action" x="32790" y="31238" z="4"/>
+            <Waypoint type="Stand" x="32789" y="31239" z="4"/>
+            <Waypoint action="--## BUY AMMO ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#012&quot;)&#xa;else&#xa;wait(300,500)&#xa;npctalk(&quot;hi&quot;, &quot;trade&quot;)&#xa;wait(300,500)&#xa;buyitemsupto(_getid(Ammo), AmmoToBuy)&#xa;wait(300,500)&#xa;end" type="Action" x="32789" y="31238" z="3"/>
+            <Waypoint type="Stand" x="32789" y="31239" z="3"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#014&quot;)&#xa;end" type="Action" x="32789" y="31240" z="4"/>
+            <Waypoint type="Stand" x="32790" y="31239" z="4"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#016&quot;)&#xa;end" type="Action" x="32790" y="31240" z="5"/>
+            <Waypoint type="Stand" x="32789" y="31239" z="5"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#018&quot;)&#xa;end" type="Action" x="32789" y="31240" z="6"/>
+            <Waypoint type="Stand" x="32790" y="31239" z="6"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#020&quot;)&#xa;end" type="Action" x="32790" y="31240" z="7"/>
+            <Waypoint type="Stand" x="32773" y="31247" z="7"/>
+            <Waypoint action="--## SUPPLY CHECK ##--&#xa;if (countitems(_getid(MP)) &lt; MPToLeave) or (countitems(_getid(HP)) &lt; HPToLeave) or (cap() &lt; CapToLeave) or (countitems(_getid(Ammo)) &lt; AmmoToLeave)  then&#xa;gotolabel(&quot;START YALA DP&quot;)&#xa;end" type="Action" x="32773" y="31247" z="7"/>
+            <Waypoint type="Stand" x="32761" y="31248" z="7"/>
+            <Waypoint type="Stand" x="32760" y="31250" z="6"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#024&quot;)&#xa;end" type="Action" x="32760" y="31251" z="5"/>
+            <Waypoint type="Stand" x="32751" y="31257" z="5"/>
+            <Waypoint type="Stand" x="32751" y="31259" z="6"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#027&quot;)&#xa;end" type="Action" x="32751" y="31260" z="7"/>
+            <Waypoint type="Stand" x="32738" y="31301" z="7"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#030&quot;)&#xa;end" type="Action" x="32738" y="31300" z="6"/>
+            <Waypoint type="Stand" x="32740" y="31298" z="6"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#032&quot;)&#xa;end" type="Action" x="32741" y="31298" z="7"/>
+            <Waypoint type="Stand" x="32753" y="31287" z="7"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#034&quot;)&#xa;end" type="Action" x="32753" y="31287" z="8"/>
+            <Waypoint type="Stand" x="32753" y="31292" z="8"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#036&quot;)&#xa;end" type="Action" x="32753" y="31293" z="9"/>
+            <Waypoint type="Stand" x="32745" y="31293" z="9"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#038&quot;)&#xa;end" type="Action" x="32744" y="31293" z="10"/>
+            <Waypoint label="#040" type="Stand" x="32741" y="31292" z="10"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#040&quot;)&#xa;end" type="Action" x="32741" y="31293" z="11"/>
+            <Waypoint label="StartHunt" range="3" type="Node" x="32738" y="31294" z="11"/>
+            <Waypoint range="2" type="Node" x="32718" y="31284" z="11"/>
+            <Waypoint range="3" type="Node" x="32698" y="31265" z="11"/>
+            <Waypoint range="2" type="Node" x="32684" y="31278" z="11"/>
+            <Waypoint range="3" type="Node" x="32692" y="31290" z="11"/>
+            <Waypoint range="2" type="Node" x="32700" y="31299" z="11"/>
+            <Waypoint range="3" type="Node" x="32706" y="31313" z="11"/>
+            <Waypoint range="2" type="Node" x="32723" y="31312" z="11"/>
+            <Waypoint range="2" type="Node" x="32740" y="31298" z="11"/>
+            <Waypoint action="--## SUPPLY CHECK ##--&#xa;if (countitems(_getid(MP)) &lt; MPToLeave) or (countitems(_getid(HP)) &lt; HPToLeave) or (cap() &lt; CapToLeave) or (countitems(_getid(Ammo)) &lt; AmmoToLeave) then&#xa;gotolabel(&quot;Leave&quot;)&#xa;else&#xa;gotolabel(&quot;StartHunt&quot;)&#xa;end" label="Check" type="Action" x="32740" y="31298" z="11"/>
+            <Waypoint label="Leave" type="Stand" x="32741" y="31292" z="11"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;Leave&quot;)&#xa;end" type="Action" x="32741" y="31291" z="10"/>
+            <Waypoint type="Stand" x="32745" y="31292" z="10"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#054&quot;)&#xa;end" type="Action" x="32746" y="31292" z="9"/>
+            <Waypoint type="Stand" x="32752" y="31292" z="9"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#056&quot;)&#xa;end" type="Action" x="32752" y="31291" z="8"/>
+            <Waypoint type="Stand" x="32753" y="31287" z="8"/>
+            <Waypoint type="Ladder" x="32753" y="31287" z="8"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#058&quot;)&#xa;end" type="Action" x="32753" y="31288" z="7"/>
+            <Waypoint label="#061" type="Stand" x="32740" y="31298" z="7"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#061&quot;)&#xa;end" type="Action" x="32739" y="31298" z="6"/>
+            <Waypoint label="#065" type="Stand" x="32738" y="31301" z="6"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#065&quot;)&#xa;end" label="#066" type="Action" x="32738" y="31302" z="7"/>
+            <Waypoint type="Stand" x="32751" y="31259" z="7"/>
+            <Waypoint type="Stand" x="32751" y="31257" z="6"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#065&quot;)&#xa;end" type="Action" x="32751" y="31256" z="5"/>
+            <Waypoint type="Stand" x="32761" y="31251" z="5"/>
+            <Waypoint type="Stand" x="32763" y="31251" z="6"/>
+            <Waypoint action="--## LOC CHECK ##--&#xa;if not islocation() then&#xa;gotolabel(&quot;#068&quot;)&#xa;end" type="Action" x="32764" y="31251" z="7"/>
+            <Waypoint range="2" type="Node" x="32773" y="31248" z="7"/>
+        </Waypoints>
+        <SpecialAreas/>
+        <Looting/>
+    </CaveBot>
+    <Scripts>
+        <Hotkeys/>
+        <Persistences>
+            <Persistence label="## SCRIPT CONFIG ##">
+                <Script content="--## SCRIPT CONFIG ##--&#xa;&#xa;--## BP'S ##--&#xa;MainBP = &quot;golden backpack&quot;  -- with rope shovel etc.&#xa;LootBP = &quot;red backpack&quot; -- for loot&#xa;MiscBP = &quot;blue backpack&quot; -- potions&#xa;AmmoBP = &quot;beach backpack&quot; -- ammunition&#xa;QuiverName = &quot;Quiver&quot; -- quiver on shield slot&#xa;&#xa;--## HUNT ##--&#xa;CapToLeave = 100&#xa;MPToLeave = 40&#xa;HPToLeave = 20&#xa;AmmoToLeave = 300&#xa;CapToDropVial = 500&#xa;&#xa;--## POTIONS &amp; AMMO ##--&#xa;MP = &quot;mana potion&quot;&#xa;MPToBuy = 100&#xa;HP = &quot;health potion&quot;&#xa;HPToBuy = 40&#xa;AmmoToBuy = 600&#xa;Ammo = &quot;onyx arrow&quot;&#xa;&#xa;&#xa;&#xa;"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="## FUNCTIONS ##">
+                <Script content="-- ## Functions ## --&#xa;-- ## Don't touch it ## --&#xa;-- ## FROM DWORAK SCRIPT ## --&#xa;init start&#xa;OnSpawn, Refill = false, false&#xa;init end&#xa;&#xa;MonstersTable = {&quot;Dragon&quot;, &quot;Dragon Chatling&quot;}&#xa;&#xa;local items = {{&quot;25 Years Backpack&quot;, {39693}},{&quot;Anniversary Backpack&quot;, {14674}},{&quot;Backpack&quot;, {2854}},{&quot;Backpack of Holding&quot;, {3253}},{&quot;Beach Backpack&quot;, {5949}},{&quot;Birthday Backpack&quot;, {24395}},{&quot;Blue Backpack&quot;, {2869}},{&quot;Book Backpack&quot;, {28571}},{&quot;Brocade Backpack&quot;, {8860}},{&quot;Buggy Backpack&quot;, {14249}},{&quot;Cake Backpack&quot;, {20347}},{&quot;Camouflage Backpack&quot;, {2872}},{&quot;Changing Backpack&quot;, {37536}},{&quot;Crown Backpack&quot;, {9605}},{&quot;Crystal Backpack&quot;, {16100}},{&quot;Deepling Backpack&quot;, {14248}},{&quot;Demon Backpack&quot;, {9601}},{&quot;Dragon Backpack&quot;, {10326}},{&quot;Energetic Backpack&quot;, {23525}},{&quot;Expedition Backpack&quot;, {10324}},{&quot;Festive Backpack&quot;, {30197}},{&quot;Fur Backpack&quot;, {7342}},{&quot;Ghost Backpack&quot;, {32620}},{&quot;Glooth Backpack&quot;, {21295}},{&quot;Golden Backpack&quot;, {2871}},{&quot;Green Backpack&quot;, {2865}},{&quot;Grey Backpack&quot;, {2870}},{&quot;Heart Backpack&quot;, {10202}},{&quot;Jewelled Backpack&quot;, {5801}},{&quot;Lilypad Backpack&quot;, {39754}},{&quot;Minotaur Backpack&quot;, {10327}},{&quot;Moon Backpack&quot;, {9604}},{&quot;Mushroom Backpack&quot;, {16099}},{&quot;Old and Used Backpack&quot;, {3244}},{&quot;Orange Backpack&quot;, {9602}},{&quot;Pannier Backpack&quot;, {19159}},{&quot;Pillow Backpack&quot;, {24393}},{&quot;Pirate Backpack&quot;, {5926}},{&quot;Purple Backpack&quot;, {2868}},{&quot;Raccoon Backpack&quot;, {35577}},{&quot;Red Backpack&quot;, {2867}},{&quot;Santa Backpack&quot;, {10346}},{&quot;War Backpack&quot;, {21445}},{&quot;Winged Backpack&quot;, {31625}},{&quot;Wolf Backpack&quot;, {22084}},{&quot;Yellow Backpack&quot;, {2866}},{&quot;Cocktail Glass&quot;, {9232}},{&quot;Delicate Vase&quot;, {12478}},{&quot;Zaoan Chess Box&quot;, {18339}},{&quot;Birthday Cake&quot;, {24396}},{&quot;Blossom Bag&quot;, {25780}},{&quot;Feedbag&quot;, {21292}},{&quot;Bag&quot;, {2853}},{&quot;Beach Bag&quot;, {5950}},{&quot;Blue Bag&quot;, {2861}},{&quot;Brocade Bag&quot;, {8861}},{&quot;Camouflage Bag&quot;, {2864}},{&quot;Expedition Bag&quot;, {10325}},{&quot;Fur Bag&quot;, {7343}},{&quot;Golden Bag&quot;, {2863}},{&quot;Green Bag&quot;, {2857}},{&quot;Grey Bag&quot;, {2862}},{&quot;Orange Bag&quot;, {9603}},{&quot;Pirate Bag&quot;, {5927}},{&quot;Purple Bag&quot;, {2860}},{&quot;Red Bag&quot;, {2859}},{&quot;Shopping Bag&quot;, {21411}},{&quot;Great Health Potion&quot;, {239}},{&quot;Great Mana Potion&quot;, {238}},{&quot;Great Spirit Potion&quot;, {7642}},{&quot;Health Potion&quot;, {266}},{&quot;Mana Potion&quot;, {268}},{&quot;Small Health Potion&quot;, {7876}},{&quot;Strong Health Potion&quot;, {236}},{&quot;Strong Mana Potion&quot;, {237}},{&quot;Supreme Health Potion&quot;, {23375}},{&quot;Ultimate Health Potion&quot;, {7643}},{&quot;Ultimate Mana Potion&quot;, {23373}},{&quot;Ultimate Spirit Potion&quot;, {23374}},{&quot;Ancient Rune&quot;, {3235}},{&quot;Animate Dead Rune&quot;, {3203}},{&quot;Astral Shaper Rune&quot;, {24960}},{&quot;Avalanche Rune&quot;, {3161}},{&quot;Blank Rune&quot;, {3147}},{&quot;Chameleon Rune&quot;, {3178}},{&quot;Convince Creature Rune&quot;, {3177}},{&quot;Cure Poison Rune&quot;, {3153}},{&quot;Destroy Field Rune&quot;, {3148}},{&quot;Disintegrate Rune&quot;, {3197}},{&quot;Energy Bomb Rune&quot;, {3149}},{&quot;Energy Field Rune&quot;, {3164}},{&quot;Energy Wall Rune&quot;, {3166}},{&quot;Explosion Rune&quot;, {3200}},{&quot;Fire Bomb Rune&quot;, {3192}},{&quot;Fire Field Rune&quot;, {3188}},{&quot;Fire Wall Rune&quot;, {3190}},{&quot;Fireball Rune&quot;, {3189}},{&quot;Glowing Rune&quot;, {28570}},{&quot;Great Fireball Rune&quot;, {3191}},{&quot;Heavy Magic Missile Rune&quot;, {3198}},{&quot;Holy Missile Rune&quot;, {3182}},{&quot;Icicle Rune&quot;, {3158}},{&quot;Inert Astral Shaper Rune&quot;, {25059}},{&quot;Intense Healing Rune&quot;, {3152}},{&quot;Light Magic Missile Rune&quot;, {3174}},{&quot;Light Stone Shower Rune&quot;, {21351}},{&quot;Lightest Magic Missile Rune&quot;, {17512}},{&quot;Lightest Missile Rune&quot;, {21352}},{&quot;Magic Wall Rune&quot;, {3180}},{&quot;Paralyse Rune&quot;, {3165}},{&quot;Poison Bomb Rune&quot;, {3173}},{&quot;Poison Field Rune&quot;, {3172}},{&quot;Poison Wall Rune&quot;, {3176}},{&quot;Stalagmite Rune&quot;, {3179}},{&quot;Stone Shower Rune&quot;, {3175}},{&quot;Sudden Death Rune&quot;, {3155}},{&quot;Thunderstorm Rune&quot;, {3202}},{&quot;Wild Growth Rune&quot;,{3156}},{&quot;Diamond Arrow&quot;, {35901}},{&quot;Quiver&quot;, {35562}},{&quot;Red Quiver&quot;, {35849}},{&quot;Alicorn Quiver&quot;, {39150}},{&quot;Blue Quiver&quot;, {35848}},{&quot;Eldritch Quiver&quot;, {36666}},{&quot;Naga Quiver&quot;, {39160}},{&quot;Onyx Arrow&quot;, {7365}}&#xa;}&#xa;&#xa;&#xa;function _getid(item_name)&#xa;    for _, item in ipairs(items) do&#xa;        if item[1]:lower() == item_name:lower() then&#xa;            if type(item[2]) == &quot;table&quot; then&#xa;                if #item[2] == 1 then&#xa;                    return item[2][1]&#xa;                else&#xa;                    return item[2]&#xa;                end&#xa;            end&#xa;        end&#xa;    end&#xa;    return nil&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="DropVials">
+                <Script content="auto(15000,20000)&#xa;if cap() &lt; CapToDropVial then&#xa;dropitems(283,countitems(283))&#xa;wait(200, 400)&#xa;dropitems(284,countitems(284))&#xa;wait(200, 400)&#xa;dropitems(285,countitems(285))&#xa;wait(200, 400)&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="Haste">
+                <Script content="auto(2000)&#xa;if maround(2, MonstersTable) &lt; 1 and not ishasted() and not ispzone() then&#xa;    talk(MESSAGE_TYPE_SAY, 'utani hur')&#xa;    wait(200)&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="FoodEat">
+                <Script content="auto(23000, 40000)&#xa;eatfood()"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="Anty Paral">
+                <Script content="auto(200)&#xa;if isparalysed() then&#xa;    talk(MESSAGE_TYPE_SAY, 'utani hur')&#xa;    wait(200)&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+            <Persistence label="AmmoRefil">
+                <Script content="auto(100, 500)&#xa;local weaponid = _getid(Ammo)&#xa;local countinquiver = countitems(_getid(Ammo), QuiverName)&#xa;if countitems(weaponid) > 0 and countinquiver &lt; 200 then&#xa;    equipobject(weaponid, 5)&#xa;end"></Script>
+                <Enabled>Yes</Enabled>
+            </Persistence>
+        </Persistences>
+    </Scripts>
+    <Targeting>
+        <TargetRules>
+            <TargetRule label="Hunt">
+                <Name>Dragon</Name>
+                <Count>1</Count>
+                <MustAttackMe>No</MustAttackMe>
+                <OnlyIfTrapped>No</OnlyIfTrapped>
+                <Settings>
+                    <Settings1>
+                        <HealthRange max="100" min="0" type="%"></HealthRange>
+                        <AttackMode>Offensive/Stand</AttackMode>
+                        <AttackAvoidance>Avoid Waves</AttackAvoidance>
+                        <DesiredStance>Distance</DesiredStance>
+                        <DesiredDistance>ShortRange</DesiredDistance>
+                        <SyncSpells>Yes</SyncSpells>
+                        <FirstSpell>Ethereal Spear</FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings1>
+                    <Settings2>
+                        <HealthRange max="20" min="0" type="%"></HealthRange>
+                        <AttackMode>Offensive/Stand</AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>Approach</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell>Divine Caldera</FirstSpell>
+                        <SecondSpell>Avalanche</SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings2>
+                    <Settings3>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings3>
+                    <Settings4>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings4>
+                </Settings>
+            </TargetRule>
+            <TargetRule label="Trap">
+                <Name>Elf, Elf Scout, Elf Arcanist</Name>
+                <Count>1</Count>
+                <MustAttackMe>No</MustAttackMe>
+                <OnlyIfTrapped>Yes</OnlyIfTrapped>
+                <Settings>
+                    <Settings1>
+                        <HealthRange max="100" min="0" type="%"></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>Approach</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings1>
+                    <Settings2>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings2>
+                    <Settings3>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings3>
+                    <Settings4>
+                        <HealthRange max="0" min="0" type=""></HealthRange>
+                        <AttackMode></AttackMode>
+                        <AttackAvoidance></AttackAvoidance>
+                        <DesiredStance>NoStance</DesiredStance>
+                        <DesiredDistance></DesiredDistance>
+                        <SyncSpells>No</SyncSpells>
+                        <FirstSpell></FirstSpell>
+                        <SecondSpell></SecondSpell>
+                        <ThirdSpell></ThirdSpell>
+                        <FourthSpell></FourthSpell>
+                        <FifthSpell></FifthSpell>
+                        <LureSpell></LureSpell>
+                    </Settings4>
+                </Settings>
+            </TargetRule>
+        </TargetRules>
+    </Targeting>
+</HoGSettings>
