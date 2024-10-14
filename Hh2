@@ -1,0 +1,178 @@
+using System;
+using System.Drawing;
+
+public class ImageFinder
+{
+    public static Point? FindPattern(Bitmap largeMap, Bitmap smallMap)
+    {
+        int largeWidth = largeMap.Width;
+        int largeHeight = largeMap.Height;
+        int smallWidth = smallMap.Width;
+        int smallHeight = smallMap.Height;
+
+        // Buforowanie pikseli dużego i małego obrazu
+        Color[] largePixels = GetPixels(largeMap);
+        Color[] smallPixels = GetPixels(smallMap);
+
+        // Oblicz hash dla małego wycinka
+        long smallHash = ComputeInitialHash(smallPixels, smallWidth, smallHeight);
+
+        long[] rowHashes = new long[largeHeight - smallHeight + 1];
+        
+        // Obliczamy początkowy hash dla każdego wiersza w dużym obrazie
+        for (int y = 0; y <= largeHeight - smallHeight; y++)
+        {
+            rowHashes[y] = ComputeInitialHash(largePixels, largeWidth, smallWidth, smallHeight, y, 0);
+        }
+
+        // Przeszukujemy duży obraz, obliczając hashe fragmentów
+        for (int y = 0; y <= largeHeight - smallHeight; y++)
+        {
+            long largeHash = rowHashes[y];
+
+            for (int x = 0; x <= largeWidth - smallWidth; x++)
+            {
+                // Porównanie hashy
+                if (largeHash == smallHash)
+                {
+                    // Jeśli hash się zgadza, potwierdź piksel po pikselu
+                    if (IsMatch(largePixels, smallPixels, largeWidth, smallWidth, x, y))
+                    {
+                        return new Point(x, y);
+                    }
+                }
+
+                // Aktualizuj hash przy przesunięciu w prawo
+                if (x < largeWidth - smallWidth)
+                {
+                    largeHash = UpdateHashHorizontal(largePixels, largeHash, largeWidth, smallWidth, smallHeight, x, y);
+                }
+            }
+
+            // Jeśli istnieje kolejny wiersz, aktualizuj hash pionowo
+            if (y < largeHeight - smallHeight)
+            {
+                rowHashes[y + 1] = UpdateHashVertical(largePixels, rowHashes[y], largeWidth, smallWidth, smallHeight, y);
+            }
+        }
+
+        return null;
+    }
+
+    private static long ComputeInitialHash(Color[] pixels, int largeWidth, int smallWidth, int smallHeight, int startY, int startX)
+    {
+        long hash = 0;
+        const int prime = 31;
+
+        for (int y = 0; y < smallHeight; y++)
+        {
+            for (int x = 0; x < smallWidth; x++)
+            {
+                Color pixel = pixels[(startY + y) * largeWidth + (startX + x)];
+                int pixelHash = pixel.R * 17 + pixel.G * 31 + pixel.B * 13;
+                hash = hash * prime + pixelHash;
+            }
+        }
+
+        return hash;
+    }
+
+    private static long UpdateHashHorizontal(Color[] pixels, long currentHash, int largeWidth, int smallWidth, int smallHeight, int startX, int startY)
+    {
+        const int prime = 31;
+        long hash = currentHash;
+
+        // Usuwamy wpływ pierwszej kolumny
+        for (int y = 0; y < smallHeight; y++)
+        {
+            Color oldPixel = pixels[(startY + y) * largeWidth + startX];
+            int oldPixelHash = oldPixel.R * 17 + oldPixel.G * 31 + oldPixel.B * 13;
+            hash -= oldPixelHash * (long)Math.Pow(prime, smallWidth - 1);
+        }
+
+        // Dodajemy nową kolumnę
+        for (int y = 0; y < smallHeight; y++)
+        {
+            Color newPixel = pixels[(startY + y) * largeWidth + (startX + smallWidth)];
+            int newPixelHash = newPixel.R * 17 + newPixel.G * 31 + newPixel.B * 13;
+            hash = hash * prime + newPixelHash;
+        }
+
+        return hash;
+    }
+
+    private static long UpdateHashVertical(Color[] pixels, long currentHash, int largeWidth, int smallWidth, int smallHeight, int startY)
+    {
+        const int prime = 31;
+        long hash = currentHash;
+
+        // Usuwamy wpływ pierwszego wiersza
+        for (int x = 0; x < smallWidth; x++)
+        {
+            Color oldPixel = pixels[(startY * largeWidth) + x];
+            int oldPixelHash = oldPixel.R * 17 + oldPixel.G * 31 + oldPixel.B * 13;
+            hash -= oldPixelHash * (long)Math.Pow(prime, smallHeight - 1);
+        }
+
+        // Dodajemy nowy wiersz
+        for (int x = 0; x < smallWidth; x++)
+        {
+            Color newPixel = pixels[((startY + smallHeight) * largeWidth) + x];
+            int newPixelHash = newPixel.R * 17 + newPixel.G * 31 + newPixel.B * 13;
+            hash = hash * prime + newPixelHash;
+        }
+
+        return hash;
+    }
+
+    private static bool IsMatch(Color[] largePixels, Color[] smallPixels, int largeWidth, int smallWidth, int startX, int startY)
+    {
+        int smallHeight = smallPixels.Length / smallWidth;
+
+        for (int y = 0; y < smallHeight; y++)
+        {
+            for (int x = 0; x < smallWidth; x++)
+            {
+                if (largePixels[(startY + y) * largeWidth + (startX + x)] != smallPixels[y * smallWidth + x])
+                {
+                    return false; // Piksele się różnią, nie ma dopasowania
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private static Color[] GetPixels(Bitmap image)
+    {
+        int width = image.Width;
+        int height = image.Height;
+        Color[] pixels = new Color[width * height];
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                pixels[y * width + x] = image.GetPixel(x, y);
+            }
+        }
+
+        return pixels;
+    }
+
+    public static void Main(string[] args)
+    {
+        Bitmap largeMap = new Bitmap("path/to/large_map.png");
+        Bitmap smallMap = new Bitmap("path/to/small_map.png");
+
+        Point? position = FindPattern(largeMap, smallMap);
+        if (position.HasValue)
+        {
+            Console.WriteLine($"Wzorzec znaleziony na pozycji: ({position.Value.X}, {position.Value.Y})");
+        }
+        else
+        {
+            Console.WriteLine("Wzorzec nie został znaleziony.");
+        }
+    }
+}
